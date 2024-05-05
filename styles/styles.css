@@ -240,8 +240,9 @@ a:hover {
 
 /* Regular screen styling */
 .control-panel {
-    text-align: right;
-    margin: 20px;
+    text-align: center;   
+    margin: 20px auto;    
+    width: 100%; 
 }
 
 .resume {
