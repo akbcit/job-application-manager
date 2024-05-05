@@ -1,0 +1,258 @@
+body, html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.resume {
+    padding: 40px;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resume-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-info {
+    margin-top: 10px;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.email, .linkedin, .website {
+    color: #0056b3;
+    transition: color 0.3s ease;
+}
+
+.email:hover, .linkedin:hover, .website:hover {
+    color: #003580;
+}
+
+.summary, .experience, .languages {
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2a5298;
+}
+
+h2 {
+    border-bottom: 2px solid #2a5298;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    color: #2a5298;
+    font-size: 1.75em;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #0056b3;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .resume {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+.resume h3 + p strong {
+    font-weight: bold;
+}
+
+.highlighted-text-blue{
+    color: #0056b3;
+}
+
+.cv-points-list{
+   margin-left: 30px;
+    list-style-type: disc;
+}
+
+.languages-list {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap; /* Ensures wrapping of items if space runs out */
+}
+
+.languages-list li {
+    font-weight: bold;
+    color: #333; /* Sets text color to dark gray */
+    font-size: 16px;
+    background-color: #f9f9f9; /* Default light gray background */
+    margin-bottom: 8px;
+    list-style: none;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.languages-list li:hover {
+    background-color: #e8e8e8; /* Slightly darker on hover */
+}
+
+/* Custom bullets based on class */
+.languages-list .proficient::before,
+.languages-list .intermediate::before,
+.languages-list .basic::before {
+    content: '•';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    width: 20px;
+}
+
+.languages-list .proficient {
+    background-color: #e0f5e9;  
+}
+
+.languages-list .intermediate {
+    background-color: #fff3e0;  
+}
+
+.languages-list .basic {
+    background-color: #ffe0e0;  
+}
+
+.languages-list .proficient::before {
+    color: green;  
+}
+
+.languages-list .intermediate::before {
+    color: orange;  
+}
+
+.languages-list .basic::before {
+    color: red;  
+}
+
+.education {
+    margin-top: 30px;
+}
+
+.education h2 {
+    border-bottom: 2px solid #2a5298;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    color: #2a5298;
+    font-size: 1.75em;
+}
+
+.education-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.education-item {
+    background-color: #f5f5f5;  
+    border-left: 5px solid #2a5298;  
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.education-item strong {
+    color: #333;
+    font-size: 1.1em;
+    display: block;  
+}
+
+.education-item br {
+    margin-bottom: 5px; 
+}
+
+.resume-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.skills-top {
+    text-align: center;
+    margin-bottom: 10px;  
+    color: #4078a0;  
+    font-size: 0.9em;  
+}
+
+
+@media print {
+     .control-panel{
+        display: none;
+    }
+
+     body, html {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        font-size: 12pt;  
+    }
+
+    .resume {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+}
+
+/* Regular screen styling */
+.control-panel {
+    text-align: right;
+    margin: 20px;
+}
+
+.resume {
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}

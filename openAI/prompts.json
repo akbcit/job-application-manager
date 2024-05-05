@@ -1,0 +1,14 @@
+{
+    "job_relevance":{
+        "prompt":"Using this paragraph that is about me: {my_summary}, and this job description: {job_posting_summary}, rate the % chance that I may get a call for first interview. Your response should just include a percentage number like 50% and nothing else.",
+        "entities":["my_summary","job_posting_summary"]
+    },
+    "job_summary":{
+        "prompt":"Summarize this job description: {job_posting_full} from company {company} for this position {position} and give me an object with the following keys: job_title, experience_required, application_deadline, application_link, skills_array, location. Share just the object and nothing else!",
+        "entities":["job_posting_full","company","position"]
+    },
+    "demonstrate":{
+        "prompt":"Using the writing style in this paragraph (called my_summary) that is about me: {my_summary}, and this job_description (called job_description): {job_posting_summary}, add some sentences to my_summary to include key skills and keywords from the shared job_description. Share just the added sentences and nothing else!",
+        "entities":["my_summary","job_posting_summary"]
+    }
+}
