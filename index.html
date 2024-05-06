@@ -11,7 +11,35 @@
 
 <body>
     <div class="control-panel">
-        <button id="updateSummary">Update Summary</button>
+        <div class="accordion">
+            <button id="accordion-btn">Add Job Posting Content</button>
+            <div id="accordion-content">
+                <form id="job-description-form">
+                    <div class="form-group">
+                        <label for="job-title">Job Title:</label>
+                        <input type="text" id="job-title" name="job-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="application-link">Application Link:</label>
+                        <input type="url" id="application-link" name="application-link" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deadline">Deadline:</label>
+                        <input type="date" id="deadline" name="deadline" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-description">Job Description:</label>
+                        <textarea id="job-description" name="job-description" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Add to Tracker</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button id="sumarize-description" class="control-btn">Summarize Job Description</button>
+        <button id="estimate-applicability" class="control-btn">Estimate Applicability</button>
+        <button id="update-summary" class="control-btn">Update Summary</button>
     </div>
     <div class="resume">
         <header class="resume-header">
@@ -39,18 +67,22 @@
                 interfaces using the MUI (Material-UI) component library.
             </p>
 
-            <p class="summary-user-para">My strong command of PostgreSQL and SQL ensures robust database management, optimizing performance and
+            <p class="summary-user-para">My strong command of PostgreSQL and SQL ensures robust database management,
+                optimizing performance and
                 data integrity. My TypeScript knowledge enhances type-safety, code reliability and maintainability.</p>
 
-            <p class="summary-user-para"> With a solid grasp of MVC architecture, I design and implement scalable application structures,
+            <p class="summary-user-para"> With a solid grasp of MVC architecture, I design and implement scalable
+                application structures,
                 improving
                 development efficiency and reducing errors. </p>
 
-            <p class="summary-user-para">My deep understanding of JWT authentication enables the secure transmission of information, enhancing
+            <p class="summary-user-para">My deep understanding of JWT authentication enables the secure transmission of
+                information, enhancing
                 application security. I understand the importance of developing robust authentication systems that
                 protect against unauthorized access and ensure user data confidentiality.</p>
 
-            <p class="summary-user-para">Over the last five years, I have honed my ability to derive insights from large and complex datasets, a
+            <p class="summary-user-para">Over the last five years, I have honed my ability to derive insights from large
+                and complex datasets, a
                 skillset I continue to rely on extensively. Utilizing advanced scripting techniques, I clean, slice, and
                 analyze disparate data sets, enabling meaningful engagement for end-users. My academic and professional
                 experience in statistics equips me to undertake serious data science projects, leveraging sophisticated
@@ -70,7 +102,7 @@
 
         </div>
         <div class="experience">
-            <h2>Work Experience</h2>
+            <h2>Experience</h2>
             <!-- BCIT SSD Student -->
             <h3><span class="highlighted-text-blue">Student - Software Systems Development</span> at British Columbia
                 Institute of Technology</h3>
