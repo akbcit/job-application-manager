@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser  from "body-parser";
 import dotenv from "dotenv";
-import { receiverRouter } from "./serverRoutes/receiverRouter.route.js";
+import { jobRouter } from "./serverRoutes/jobRouter.route.js";
 import cors from 'cors';
 import logger from "morgan";
 
@@ -21,7 +21,7 @@ app.get("/",(req,res)=>{
     res.send("hi");
 });
 
-app.use("/api/summary",receiverRouter);
+app.use("/api/job",jobRouter);
 
 const PORT = process.env.PORT;
 

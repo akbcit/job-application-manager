@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -30,16 +31,22 @@ body, html {
     color: #666;
 }
 
-.email, .linkedin, .website {
+.email,
+.linkedin,
+.website {
     color: #0056b3;
     transition: color 0.3s ease;
 }
 
-.email:hover, .linkedin:hover, .website:hover {
+.email:hover,
+.linkedin:hover,
+.website:hover {
     color: #003580;
 }
 
-.summary, .experience, .languages {
+.summary,
+.experience,
+.languages {
     margin-top: 30px;
 }
 
@@ -89,16 +96,16 @@ a:hover {
     }
 }
 
-.resume h3 + p strong {
+.resume h3+p strong {
     font-weight: bold;
 }
 
-.highlighted-text-blue{
+.highlighted-text-blue {
     color: #0056b3;
 }
 
-.cv-points-list{
-   margin-left: 30px;
+.cv-points-list {
+    margin-left: 30px;
     list-style-type: disc;
 }
 
@@ -106,25 +113,30 @@ a:hover {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    flex-wrap: wrap; /* Ensures wrapping of items if space runs out */
+    flex-wrap: wrap;
+    /* Ensures wrapping of items if space runs out */
 }
 
 .languages-list li {
     font-weight: bold;
-    color: #333; /* Sets text color to dark gray */
-    font-size: 16px;
-    background-color: #f9f9f9; /* Default light gray background */
+    color: #333;
+    /* Sets text color to dark gray */
+    font-size: 12px;
+    background-color: #f9f9f9;
+    /* Default light gray background */
     margin-bottom: 8px;
     list-style: none;
     position: relative;
     padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effects */
 }
 
 .languages-list li:hover {
-    background-color: #e8e8e8; /* Slightly darker on hover */
+    background-color: #e8e8e8;
+    /* Slightly darker on hover */
 }
 
 /* Custom bullets based on class */
@@ -141,27 +153,27 @@ a:hover {
 }
 
 .languages-list .proficient {
-    background-color: #e0f5e9;  
+    background-color: #e0f5e9;
 }
 
 .languages-list .intermediate {
-    background-color: #fff3e0;  
+    background-color: #fff3e0;
 }
 
 .languages-list .basic {
-    background-color: #ffe0e0;  
+    background-color: #ffe0e0;
 }
 
 .languages-list .proficient::before {
-    color: green;  
+    color: green;
 }
 
 .languages-list .intermediate::before {
-    color: orange;  
+    color: orange;
 }
 
 .languages-list .basic::before {
-    color: red;  
+    color: red;
 }
 
 .education {
@@ -182,22 +194,22 @@ a:hover {
 }
 
 .education-item {
-    background-color: #f5f5f5;  
-    border-left: 5px solid #2a5298;  
+    background-color: #f5f5f5;
+    border-left: 5px solid #2a5298;
     padding: 10px 20px;
     margin-bottom: 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .education-item strong {
     color: #333;
     font-size: 1.1em;
-    display: block;  
+    display: block;
 }
 
 .education-item br {
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
 }
 
 .resume-header {
@@ -209,40 +221,42 @@ a:hover {
 
 .skills-top {
     text-align: center;
-    margin-bottom: 10px;  
-    color: #4078a0;  
-    font-size: 0.9em;  
+    margin-bottom: 10px;
+    color: #4078a0;
+    font-size: 0.9em;
 }
 
 
 @media print {
-     .control-panel{
+    .control-panel {
         display: none;
     }
 
-     body, html {
+    body,
+    html {
         width: 100%;
         max-width: 100%;
         padding: 0;
         margin: 0;
-        font-size: 12pt;  
+        font-size: smaller;
+        /* Adjust font size if necessary */
     }
 
     .resume {
-        box-shadow: none !important;
-        border: none !important;
         width: 100%;
         max-width: 100%;
         padding: 10px;
+        box-shadow: none !important;
+        border: none !important;
     }
 
 }
 
 /* Regular screen styling */
 .control-panel {
-    text-align: center;   
-    margin: 20px auto;    
-    width: 100%; 
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
 }
 
 .resume {
@@ -264,7 +278,7 @@ a:hover {
     transition: max-height 0.5s ease;
 }
 
- .accordion-btn {
+.accordion-btn {
     background-color: #f4f4f4;
     color: #333;
     cursor: pointer;
@@ -277,7 +291,7 @@ a:hover {
 
 .accordion-content textarea {
     width: 100%;
-    height: 100px; 
+    height: 100px;
     resize: vertical;
     box-sizing: border-box;
     padding: 5px;
@@ -320,7 +334,6 @@ textarea {
 /* Style for the submit button */
 button[type="submit"] {
     background-color: #007bff;
-    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -345,13 +358,13 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-#accordion-btn{
+#accordion-btn {
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px; 
+    font-size: 16px;
 }
 
 #accordion-btn:hover {
