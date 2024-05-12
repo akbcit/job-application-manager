@@ -7,7 +7,6 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
 
 ## Prerequisites
 - Node.js installed
-- Basic knowledge of HTML
 - Working knowledge of HTML, CSS, and JavaScript for resume customization
 
 ## Features
