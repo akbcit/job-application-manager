@@ -3,7 +3,7 @@
 ## Overview
 Job Application Tracker V1.0 is a tool designed to streamline the process of tracking job applications, summarizing job descriptions, and managing resumes. It leverages Natural Language Processing (NLP) to extract technical skills from job descriptions and provides the flexibility to modify resumes in HTML format and download them as PDF files. 
 
-Video demo is added here - [Job Application Manager]([https://github.com/akbcit/job-application-manager](https://vimeo.com/945574687))
+Video demo is added here - [Job Application Manager](https://vimeo.com/945574687)
 
 ## Features
 1. **Application Tracking**: Easily keep track of the jobs you are applying to, including their current status.
