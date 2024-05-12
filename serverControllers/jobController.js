@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { addJobToTracker } from '../data/utils/addJobToTracker.js';
+import { getAllJobsFromTracker } from '../data/utils/getAllJobsFromTracker.js';
 import { summarizeJDLLM } from '../llm/llmMethods/llmMethods.js';
 
 export const getUpdatedSummaryFromLLM = async (req, res) => {
@@ -11,8 +12,8 @@ export const getUpdatedSummaryFromLLM = async (req, res) => {
 
 export const summarizeJD = async (req, res) => {
     const jobObject = req.body;
-    const updatedJobObject =  await summarizeJDLLM(jobObject);
-    return res.status(200).send({updatedJobObject:updatedJobObject});
+    const summaryObj =  await summarizeJDLLM(jobObject);
+    return res.status(200).send({summaryObj:summaryObj});
 };
 
 
@@ -22,5 +23,15 @@ export const addToTracker = async (req, res) => {
     jobObject.jobId = jobId;
     addJobToTracker(jobObject);
     return res.status(200).send({jobObject:jobObject});
+};
+
+export const getAllJobs = async (req, res) => {
+    const allJobs = await getAllJobsFromTracker();
+    if(allJobs && allJobs.length>0){
+        return res.status(200).send({allJobs:allJobs});
+    }
+    else{
+        return res.status(200).send({allJobs:[]});
+    }
 };
 

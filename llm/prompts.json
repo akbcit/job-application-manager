@@ -4,7 +4,7 @@
         "entities":["my_summary","job_posting_summary"]
     },
     "job_summary":{
-        "prompt":"Summarize this job posting object: {jobObject} and give me the object back after adding the following keys and respective values to the object: experience_required, skills_array, location. If you were unable to get a value for a key, its value should be 'NA', Share back just the updated object and nothing else!",
+        "prompt":"Summarize this job posting object: {jobObject} and give me the object back after adding the following keys and respective values to the object: experience_required (which is total years of experience required), tech_skills_array which is all the tech skills that the job requires. If you were unable to get a value for a key, its value should be 'NA', Share back just the experience_required and tech_skills_array in an object and  nothing else!",
         "entities":["jobObject"]
     },
     "demonstrate":{

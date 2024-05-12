@@ -7,6 +7,8 @@ html {
     color: #333;
     line-height: 1.6;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -257,6 +259,7 @@ a:hover {
     text-align: center;
     margin: 20px auto;
     width: 100%;
+
 }
 
 .resume {
@@ -374,4 +377,164 @@ button[type="submit"]:hover {
 .control-btn:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+/* General style for form alert messages */
+.form-alert {
+    font-size: 16px;
+    /* Set the font size */
+    text-align: center;
+    /* Center the text */
+    margin: 10px 0;
+    /* Add some margin above and below */
+    padding: 10px;
+    /* Add some padding for better visibility */
+    border-radius: 5px;
+    /* Round the corners */
+}
+
+/* Specific style for success messages */
+.form-alert.success {
+    color: #155724;
+    /* Greenish text color for success */
+    background-color: #d4edda;
+    /* Light green background */
+    border: 1px solid #c3e6cb;
+    /* Subtle green border */
+}
+
+/* Specific style for error messages */
+.form-alert.error {
+    color: #721c24;
+    /* Reddish text color for error */
+    background-color: #f8d7da;
+    /* Light red background */
+    border: 1px solid #f5c6cb;
+    /* Subtle red border */
+}
+
+.job-tracker-container {
+    width: 90%;
+    /* Adjust width as needed */
+    max-width: 1200px;
+    /* Maximum width of the container */
+    margin: 20px auto;
+    /* Centering the table horizontally and giving some space above and below */
+    overflow-x: auto;
+    /* Ensures the table is scrollable horizontally on small screens */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    border-radius: 8px;
+    /* Rounded corners for the outer container */
+    background-color: #ffffff;
+    /* White background for the container */
+    padding: 20px;
+    /* Padding around the table */
+}
+
+.job-tracker {
+    width: 100%;
+    /* Full width of its container */
+    border-collapse: collapse;
+    /* Ensures borders between cells are merged */
+    font-size: 16px;
+    /* Adjust font size for table content */
+}
+
+.job-tracker th,
+.job-tracker td {
+    text-align: left;
+    /* Aligning text to the left */
+    padding: 12px 15px;
+    /* Padding inside table cells */
+    border-bottom: 1px solid #dddddd;
+    /* Light grey border for separating rows */
+}
+
+.job-tracker th {
+    background-color: #f5f5f5;
+    /* Light grey background for header */
+    color: #333;
+    /* Dark grey color for header text */
+    font-weight: bold;
+    /* Make header font bold */
+}
+
+.job-tracker td {
+    color: #666;
+    /* Slightly lighter text color for content */
+}
+
+.job-tracker tr:last-child td {
+    border-bottom: none;
+    /* Remove bottom border from the last row */
+}
+
+.job-tracker tr:hover {
+    background-color: #f9f9f9;
+    /* Slight background color on hover for better interaction */
+}
+
+/* Responsive Table Scroll */
+@media (max-width: 768px) {
+    .job-tracker-container {
+        width: 100%;
+        /* Full width on small screens */
+        margin: 10px 0;
+        /* Less vertical margin on small screens */
+        padding: 10px;
+        /* Less padding on small screens */
+    }
+
+    .job-tracker {
+        font-size: 14px;
+        /* Smaller font size on small screens */
+    }
+}
+
+/* Toggle Button Styling */
+.toggle-btn {
+    background-color: #007bff;
+    /* Primary blue color */
+    color: white;
+    /* White text for better contrast */
+    border: none;
+    /* No border */
+    padding: 8px 16px;
+    /* Padding for better touch area */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Cursor indicates clickable item */
+    transition: background-color 0.3s ease;
+    /* Smooth transition for hover effect */
+    font-size: 14px;
+    /* Suitable font size */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for 3D effect */
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.toggle-btn:disabled {
+    background-color: #cccccc;
+    /* Grey out when disabled */
+    cursor: not-allowed;
+    /* Show not-allowed cursor on hover */
+}
+
+.download-resume-pdf {
+    background-color: #007bff;
+     color: white;
+     border: none;
+     padding: 8px 16px;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+     font-size: 14px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+     align-self: center;
 }

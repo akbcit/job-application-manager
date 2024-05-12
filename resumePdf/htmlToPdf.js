@@ -5,7 +5,7 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-async function convertResumeSectionToPDF() {
+export async function convertResumeSectionToPDF() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 

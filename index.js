@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser  from "body-parser";
 import dotenv from "dotenv";
 import { jobRouter } from "./serverRoutes/jobRouter.route.js";
+import { resumeRouter } from "./serverRoutes/resumeRouter.js";
 import cors from 'cors';
 import logger from "morgan";
 
@@ -22,6 +23,7 @@ app.get("/",(req,res)=>{
 });
 
 app.use("/api/job",jobRouter);
+app.use("/api/resume",resumeRouter);
 
 const PORT = process.env.PORT;
 

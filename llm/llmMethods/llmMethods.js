@@ -6,6 +6,5 @@ export const summarizeJDLLM = async (jobObj) => {
   const jobObjString = JSON.stringify(jobObj);
   const customizedPrompt = template.replace(/{jobObject}/g, jobObjString);
   const response = await generateResponse(customizedPrompt);
-  console.log(response);
-  return customizedPrompt;
+  return response;
 };

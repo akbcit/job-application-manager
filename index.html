@@ -11,6 +11,7 @@
 
 <body>
     <div class="control-panel">
+        <p class="form-alert"></p>
         <div class="accordion">
             <button id="accordion-btn">Add Job Posting Content</button>
             <div id="accordion-content">
@@ -39,6 +40,14 @@
                         <label for="job-description">Job Description:</label>
                         <textarea id="job-description" name="job-description" rows="6" required></textarea>
                     </div>
+                    <div class="form-group hidden-summary-fields" style="display: none;">
+                        <label for="total-experience">Total Experience:</label>
+                        <input type="text" id="total-experience" name="total-experience"></input>
+                    </div>
+                    <div class="form-group hidden-summary-fields" style="display: none;">
+                        <label for="tech-skills">Tech Skills:</label>
+                        <input type="text" id="tech-skills" name="tech-skills" \></input>
+                    </div>
                     <div class="form-group">
                         <button type="submit">Add to Tracker</button>
                     </div>
@@ -46,9 +55,29 @@
             </div>
         </div>
         <button id="sumarize-description" class="control-btn">Summarize Job Description</button>
-        <button id="estimate-applicability" class="control-btn">Estimate Applicability</button>
-        <button id="update-summary" class="control-btn">Update Summary</button>
+        <button id="estimate-applicability" class="control-btn" disabled>Estimate Applicability</button>
+        <button id="update-summary" class="control-btn" disabled>Update Summary</button>
     </div>
+    <div class="job-tracker-container">
+        <table id="job-tracker-table" class="job-tracker">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Experience</th>
+                    <th>Organization</th>
+                    <th>Location</th>
+                    <th>Application Link</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                    <th>Tech Skills</th>
+                </tr>
+            </thead>
+            <tbody id="jobs-list">
+                <!-- Rows will be added here programmatically -->
+            </tbody>
+        </table>
+    </div>
+    <a  href = "http://localhost:3004/api/resume/pdf" target="_blank" class="download-resume-pdf">Download Resume PDF</a>
     <div class="resume">
         <header class="resume-header">
             <div class="header-left">
@@ -57,7 +86,7 @@
             <h1 class="header-user-name">Aditya K.</h1>
             <div class="skills-top">
                 Node.js | React | PostgreSQL | Angular | ASP.NET | TypeScript | C# | Data Analysis and Visualization |
-                Product Development and Management
+                Product Development and Management | AWS EC2 | Semantic Search | LLM APIs
             </div>
             <div class="contact-info">
                 <span class="phone">604-783-3917</span> |
@@ -116,7 +145,12 @@
                 Institute of Technology</h3>
             <p><strong>09/2023 - Present</strong> | Vancouver, British Columbia, Canada</p>
             <ul class="cv-points-list">
-                <li><b>Industry Project (The Rooted Table)</b>: Created and deployed a Web App for Item, Grocery and Supplier Management that will be used by chefs and managers at the Custom Meal Prep business. Made the frontend (React) and Backend (Node.js) using TypeScript. Leveraged advanced global state management (Context API), complex server querying (React Query) and user friendly UI (MUI). Secured the API endpoints using AWS cognito using a three-token strategy and authentication and authorization middlewares. Used a relational database approach (PostgreSQL).</li>
+                <li><b>Industry Project (The Rooted Table)</b>: Created and deployed a Web App for Item, Grocery and
+                    Supplier Management that will be used by chefs and managers at the Custom Meal Prep business. Made
+                    the frontend (React) and Backend (Node.js) using TypeScript. Leveraged advanced global state
+                    management (Context API), complex server querying (React Query) and user friendly UI (MUI). Secured
+                    the API endpoints using AWS cognito using a three-token strategy and authentication and
+                    authorization middlewares. Used a relational database approach (PostgreSQL).</li>
                 <li>Actively applying theoretical knowledge of software development in practical projects.
                     Portfolio available at <a href="http://kumaraditya.tech/">kumaraditya.tech</a>.</li>
             </ul>
