@@ -4,8 +4,8 @@
         "entities":["my_summary","job_posting_summary"]
     },
     "job_summary":{
-        "prompt":"Summarize this job postong object: {job_posting_full} and give me the object back after adding the following keys and respective values to the object: experience_required, skills_array, location. If you were unable to get a value for a key, its value should be 'NA', Share back just the updated object and nothing else!",
-        "entities":["job_object"]
+        "prompt":"Summarize this job posting object: {jobObject} and give me the object back after adding the following keys and respective values to the object: experience_required, skills_array, location. If you were unable to get a value for a key, its value should be 'NA', Share back just the updated object and nothing else!",
+        "entities":["jobObject"]
     },
     "demonstrate":{
         "prompt":"Using the writing style in this paragraph (called my_summary) that is about me: {my_summary}, and this job_description (called job_description): {job_posting_summary}, add some sentences to my_summary to include key skills and keywords from the shared job_description. Share just the added sentences and nothing else!",

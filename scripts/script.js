@@ -98,6 +98,28 @@ $(document).ready(() => {
     }
   };
 
+  const summarizeDescription = (jobObject) => {
+    if (
+      jobObject.jobTitle &&
+      jobObject.jobOrg &&
+      jobObject.jobLocation &&
+      jobObject.applicationLink &&
+      jobObject.jobDescription
+    ) {
+      $.ajax({
+        url: "http://localhost:3004/api/job/summarize-jd",
+        type: "POST",
+        data: jobObject,
+        success: function (response) {
+          console.log("Success:", response);
+        },
+        error: function (xhr, status, error) {
+          console.error("Error:", error);
+        },
+      });
+    }
+  };
+
   jobForm.submit((event) => {
     event.preventDefault();
 
@@ -110,7 +132,7 @@ $(document).ready(() => {
 
     const jobObject = {
       jobTitle: jobTitleValue,
-      jobOrg:jobOrgValue,
+      jobOrg: jobOrgValue,
       jobLocation: jobLocationValue,
       applicationLink: applicationLinkValue,
       jobDescription: jobDescriptionValue,
@@ -121,5 +143,32 @@ $(document).ready(() => {
     }
 
     addJobToTracker(jobObject);
+  });
+
+  const sumarizeDescriptionBtn = $("#sumarize-description");
+
+  sumarizeDescriptionBtn.click(() => {
+    const jobTitleValue = $("#job-title").val();
+    const jobOrgValue = $("#job-org").val();
+    const jobLocationValue = $("#job-location").val();
+    const applicationLinkValue = $("#application-link").val();
+    const deadlineValue = $("#job-title").val();
+    const jobDescriptionValue = $("#job-description").val();
+
+    const jobObject = {
+      jobTitle: jobTitleValue,
+      jobOrg: jobOrgValue,
+      jobLocation: jobLocationValue,
+      applicationLink: applicationLinkValue,
+      jobDescription: jobDescriptionValue,
+    };
+
+    if (deadlineValue) {
+      jobObject.deadline = deadlineValue;
+    }
+
+    console.log(jobObject);
+
+    summarizeDescription(jobObject);
   });
 });

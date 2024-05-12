@@ -1,5 +1,11 @@
-import prompts from "../prompts.json";
+import prompts from "../prompts.json" assert { type: "json" };
+import { generateResponse } from "../openAIResponse.js";
 
-const summarizeJD = async ()=>{
-
-}
+export const summarizeJDLLM = async (jobObj) => {
+  const template = prompts["job_summary"].prompt;
+  const jobObjString = JSON.stringify(jobObj);
+  const customizedPrompt = template.replace(/{jobObject}/g, jobObjString);
+  const response = await generateResponse(customizedPrompt);
+  console.log(response);
+  return customizedPrompt;
+};
