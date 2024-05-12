@@ -79,6 +79,7 @@ $(document).ready(() => {
   const addJobToTracker = (jobObject) => {
     if (
       jobObject.jobTitle &&
+      jobObject.jobOrg &&
       jobObject.jobLocation &&
       jobObject.applicationLink &&
       jobObject.jobDescription
@@ -101,13 +102,15 @@ $(document).ready(() => {
     event.preventDefault();
 
     const jobTitleValue = $("#job-title").val();
+    const jobOrgValue = $("#job-org").val();
     const jobLocationValue = $("#job-location").val();
     const applicationLinkValue = $("#application-link").val();
     const deadlineValue = $("#job-title").val();
     const jobDescriptionValue = $("#job-description").val();
-    
+
     const jobObject = {
       jobTitle: jobTitleValue,
+      jobOrg:jobOrgValue,
       jobLocation: jobLocationValue,
       applicationLink: applicationLinkValue,
       jobDescription: jobDescriptionValue,

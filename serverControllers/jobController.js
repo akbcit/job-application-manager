@@ -11,7 +11,7 @@ export const addToTracker = async (req, res) => {
     const jobObject = req.body;
     const jobId = uuidv4();
     jobObject.jobId = jobId;
-    addJobToTracker();
+    addJobToTracker(jobObject);
     return res.status(200).send({jobObject:jobObject});
 };
 

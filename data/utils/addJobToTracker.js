@@ -8,10 +8,12 @@ const __dirname = dirname(__filename);
 
 const trackedJobsFilePath = path.join(__dirname, "../", "trackedJobs.json");
 
-export const addJobToTracker = () => {
+export const addJobToTracker = (jobObject) => {
   try {
-    const trackedJobs = fs.readFileSync(trackedJobsFilePath, "utf-8");
-    console.log(trackedJobs);
+    const trackedJobs = JSON.parse(fs.readFileSync(trackedJobsFilePath, "utf-8"));
+    trackedJobs.push(jobObject);
+    const updatedTrackedJobsData = JSON.stringify(trackedJobs, null, 2); 
+    fs.writeFileSync(trackedJobsFilePath, updatedTrackedJobsData);
   } catch (err) {
     console.log(err);
   }
