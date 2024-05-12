@@ -1,7 +1,7 @@
 # Job Application Tracker V1.0
 
 ## Overview
-Job Application Tracker V1.0 is a tool designed to streamline the process of tracking job applications, summarizing job descriptions, and managing resumes. It leverages Natural Language Processing (NLP) to extract technical skills from job descriptions and provides the flexibility to modify resumes in HTML format and download them as PDF files. 
+Job Application Tracker V1.0 is a locally hosted tool designed to streamline the process of tracking job applications, summarizing job descriptions, and managing resumes. It leverages Natural Language Processing (NLP) to extract technical skills from job descriptions and provides the flexibility to modify resumes in HTML format and download them as PDF files. 
 
 Video demo is added here - [Job Application Manager](https://vimeo.com/945574687)
 
@@ -32,6 +32,14 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
     ```
    Ensure you have an OpenAI developer account and obtain an API key. Additionally, set the port to 3004.
 5. **OpenAI API Key**: Create an OpenAI developer account, obtain an API key, and manage usage limits. Note that adding a $5 payment may be required, but it provides a significant number of tokens.
+6. **Run Development Server**: To run the development server, use the following command:
+    ```bash
+    npm run dev
+    ```
+    or
+    ```bash
+    yarn dev
+    ```
 
 ## Roadmap
 1. **Status Update**: Enhance the application to modify tracked jobs and update their status seamlessly.
