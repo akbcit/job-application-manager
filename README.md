@@ -5,6 +5,11 @@ Job Application Tracker V1.0 is a tool designed to streamline the process of tra
 
 Video demo is added here - [Job Application Manager](https://vimeo.com/945574687)
 
+## Prerequisites
+- Node.js installed
+- Basic knowledge of HTML
+- Working knowledge of HTML, CSS, and JavaScript for resume customization
+
 ## Features
 1. **Application Tracking**: Easily keep track of the jobs you are applying to, including their current status.
 2. **NLP Summary and Skill Extraction**: Utilizes Language Model (LLM) to summarize job descriptions and extract technical skills, aiding in understanding job requirements.
@@ -12,7 +17,8 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
 
 ## Installation Steps
 1. **Clone Repository**: Clone the repository locally using the following link: [Job Application Manager](https://github.com/akbcit/job-application-manager)
-2. **Install Dependencies**: Install node modules using npm or yarn by running:
+2. **Customise resume**: Change the resume contents and styling to suit your requirements (Do not modify css selectors, if you must, then make apprporiate chnages in script.js)
+3. **Install Dependencies**: Install node modules using npm or yarn by running:
     ```
     npm install
     ```
@@ -20,13 +26,13 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
     ```
     yarn install
     ```
-3. **Set Environment Variables**: Create a `.env` file and add the following environment variables:
+4. **Set Environment Variables**: Create a `.env` file and add the following environment variables:
     ```
     OPEN_AI_API_KEY=<Your_OpenAI_API_Key>
     PORT=3004
     ```
    Ensure you have an OpenAI developer account and obtain an API key. Additionally, set the port to 3004.
-4. **OpenAI API Key**: Create an OpenAI developer account, obtain an API key, and manage usage limits. Note that adding a $5 payment may be required, but it provides a significant number of tokens.
+5. **OpenAI API Key**: Create an OpenAI developer account, obtain an API key, and manage usage limits. Note that adding a $5 payment may be required, but it provides a significant number of tokens.
 
 ## Roadmap
 1. **Status Update**: Enhance the application to modify tracked jobs and update their status seamlessly.
