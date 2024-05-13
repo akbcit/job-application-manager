@@ -70,6 +70,7 @@
                     <th>Description</th>
                     <th>Deadline</th>
                     <th>Tech Skills</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody id="jobs-list">
@@ -77,7 +78,7 @@
             </tbody>
         </table>
     </div>
-    <a  href = "http://localhost:3004/api/resume/pdf" target="_blank" class="download-resume-pdf">Download Resume PDF</a>
+    <a href="http://localhost:3004/api/resume/pdf" target="_blank" class="download-resume-pdf">Download Resume PDF</a>
     <div class="resume">
         <header class="resume-header">
             <div class="header-left">
@@ -238,6 +239,36 @@
             </ul>
         </div>
     </div>
+
+    <div class="inbox-scan-form-container">
+        <form id="inbox-scan-form" class="inbox-scan-form">
+            <div class="form-group">
+                <label for="emailFrom">Email From:</label>
+                <input type="text" id="emailFrom" name="emailFrom" required>
+            </div>
+            <div class="form-group">
+                <label for="searchDate">Search Date:</label>
+                <input type="date" id="searchDate" name="searchDate" required>
+            </div>
+            <button type="submit" class="scan-btn">Scan Inbox for Links from Job Alerts</button>
+        </form>
+    </div>
+    
+    <div class="links-tracker-container">
+        <table id="links-tracker-table" class="links-tracker">
+            <thead>
+                <tr>
+                    <th>Link</th>
+                    <th>Date</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="links-list">
+                <!-- Rows will be added here programmatically -->
+            </tbody>
+        </table>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./scripts/script.js"></script>
 </body>
