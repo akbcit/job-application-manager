@@ -8,11 +8,14 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
 ## Prerequisites
 - Node.js installed
 - Working knowledge of HTML, CSS, and JavaScript for resume customization
+- Gmail account
+- LinkedIn Account with job alerts set up that are received on teh gmail account
 
 ## Features
 1. **Application Tracking**: Easily keep track of the jobs you are applying to, including their current status.
-2. **NLP Summary and Skill Extraction**: Utilizes Language Model (LLM) to summarize job descriptions and extract technical skills, aiding in understanding job requirements.
-3. **Resume Customization**: Allows modification of resumes in HTML format and enables downloading them as PDF files for easy sharing.
+2. **Inbox Scanning**: Scan your inbox to extract links out of job alert emails.
+3. **NLP Summary and Skill Extraction**: Utilizes Language Model (LLM) to summarize job descriptions and extract technical skills, aiding in understanding job requirements.
+4. **Resume Customization**: Allows modification of resumes in HTML format and enables downloading them as PDF files for easy sharing.
 
 ## Installation Steps
 1. **Clone Repository**: Clone the repository locally using the following link: [Job Application Manager](https://github.com/akbcit/job-application-manager)
@@ -45,6 +48,7 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
 1. **Status Update**: Enhance the application to modify tracked jobs and update their status seamlessly.
 2. **Applicability Estimation**: Implement functionality to estimate the applicability of a job based on the entered job description, providing insights into potential matches.
 3. **Summary Enhancement**: Improve the summary feature by updating it based on the skills mentioned in the job description that the applicant may possess.
+4. **Enhanced Email Parse**: Improve email parsing to include better information and categorize job-related emails. 
 
 ## Contact Information
 For any questions or assistance, please reach out to kumaraditya.ca@gmail.com.
