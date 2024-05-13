@@ -413,7 +413,7 @@ button[type="submit"]:hover {
     /* Subtle red border */
 }
 
-.job-tracker-container {
+.job-tracker-container,.links-tracker-container {
     width: 90%;
     /* Adjust width as needed */
     max-width: 1200px;
@@ -432,7 +432,7 @@ button[type="submit"]:hover {
     /* Padding around the table */
 }
 
-.job-tracker {
+.job-tracker,.links-tracker {
     width: 100%;
     /* Full width of its container */
     border-collapse: collapse;
@@ -441,7 +441,7 @@ button[type="submit"]:hover {
     /* Adjust font size for table content */
 }
 
-.job-tracker th,
+.job-tracker th,.links-tracker th,.links-tracker td
 .job-tracker td {
     text-align: left;
     /* Aligning text to the left */
@@ -451,7 +451,7 @@ button[type="submit"]:hover {
     /* Light grey border for separating rows */
 }
 
-.job-tracker th {
+.job-tracker th,.links-tracker th {
     background-color: #f5f5f5;
     /* Light grey background for header */
     color: #333;
@@ -460,17 +460,17 @@ button[type="submit"]:hover {
     /* Make header font bold */
 }
 
-.job-tracker td {
+.job-tracker td ,.links-tracker td{
     color: #666;
     /* Slightly lighter text color for content */
 }
 
-.job-tracker tr:last-child td {
+.job-tracker tr:last-child td , .links-tracker tr:last-child td{
     border-bottom: none;
     /* Remove bottom border from the last row */
 }
 
-.job-tracker tr:hover {
+.job-tracker tr:hover, .links-tracker tr:hover {
     background-color: #f9f9f9;
     /* Slight background color on hover for better interaction */
 }
@@ -500,7 +500,7 @@ button[type="submit"]:hover {
     /* White text for better contrast */
     border: none;
     /* No border */
-    padding: 8px 16px;
+    padding: 2px 4px;
     /* Padding for better touch area */
     border-radius: 5px;
     /* Rounded corners */
@@ -537,4 +537,59 @@ button[type="submit"]:hover {
      font-size: 14px;
      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
      align-self: center;
+}
+
+.inbox-scan-form-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.inbox-scan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button.scan-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button.scan-btn.disabled {
+    background-color: #ccd1d7;
+}
+
+button.scan-btn:hover {
+    background-color: #0056b3;
 }

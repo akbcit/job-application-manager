@@ -33,7 +33,8 @@
       " Software Engineering",
       " or related field"
     ],
-    "jobId": "d5def4ef-c365-42d0-b2d4-10d63c0029e8"
+    "jobId": "d5def4ef-c365-42d0-b2d4-10d63c0029e8",
+    "status": "Applied"
   },
   {
     "jobTitle": "Software Developer Co-Op (Capture)",
@@ -54,5 +55,67 @@
       " Git"
     ],
     "jobId": "8547a2f6-352d-4539-a0ba-14aff0d13c10"
+  },
+  {
+    "jobTitle": "Intern, Software Development",
+    "jobOrg": "Wealthsimple",
+    "jobLocation": "Remote",
+    "applicationLink": "https://www.linkedin.com/jobs/view/3916784438/?trackingId=nswulyWaSOKp5CrL%2BgBWtA%3D%3D&refId=CcYzpaWCQJ6GbWW8o5zStQ%3D%3D&midToken=AQFgN--t8rkTEg&midSig=0BanpmEASBjHg1&trk=eml-email_jobs_viewed_job_reminder_01-job_card-0-jobcard_body&trkEmail=eml-email_jobs_viewed_job_reminder_01-job_card-0-jobcard_body-null-5xugsm~lw5ali7k~zv-null-null&eid=5xugsm-lw5ali7k-zv&otpToken=MTEwMDE3ZTExNTI3Y2ZjMWIwMjQwNGVkNDcxYmUxYjY4NmM5ZDc0NDk4YWY4NjYxNzljMzAxNmI0NjVkNWRmMGYzZDNkZmJlNmNjZGU1Zjc0Y2JmZDI3NDhlNjc3MDE0MTJkOGY2YmJmMTQzM2UyNDdhNWRiMiwxLDE%3D",
+    "jobDescription": "Engineering @ Wealthsimple\n\nWealthsimple has several engineering teams ranging from product-focused to back-office and our teams build and manage the software that powers our services. We do this using microservice architecture and an agile approach, focused on short iterations and rigorous automated testing, deploying our code over 100 times a day. We maximize our productivity by building high-performing teams and giving them autonomy to deliver results, working very closely with product management, design and operations to make sure that our work delivers maximum benefit for our clients.\n\nInterns @ Wealthsimple are completely integrated into the teams they join and get to work on meaningful projects during their time with us! For Fall 2024, we're looking to add Frontend, Full Stack, and Backend Engineers to our growing teams! Throughout the interview process, we'll learn more about your skills and interests to match you with the right team at Wealthsimple.\n\nWe're looking for people who:\n\nAre driven to ship frequently\nTake ownership in working on projects to successful completion\nEnjoy tackling new, complex challenges on a regular basis\nAre comfortable with self-directed learning\nBelieve that debate, inclusivity and transparency result in better products\nAre eager to learn from your team and others. We value making one another successful!\n\n\nThings you should know about our tech before applying:\n\nWe have a microservice architecture with over 100+ services in production\nRoughly half of these services are Ruby on Rails, with the other half being Java/Kotlin\nOur frontend application is a mix of React/Angular\nWe host our services on AWS and use things like RDS, Aurora, SQS, SNS, S3, Kafka, etc\nWe follow best practices and have great tools for profiling, logging, tracing, tracking and experimenting\n\n\nWhat you can expect from the interview process 👀\n\nFirst Interview: 45-minute technical interview (in your language of choice) with one interviewer\nSecond Interview: 1-hour interview with a hiring manager where you will be walking through a project review\nLast Stage: Offer! 🎉 \n\n\nApplications close on May 13th, 5pm EST.",
+    "deadline": "2024-05-13",
+    "experienceRequired": "NA",
+    "techSkillsArr": [
+      "Ruby on Rails",
+      " Java",
+      " Kotlin",
+      " React",
+      " Angular",
+      " AWS",
+      " RDS",
+      " Aurora",
+      " SQS",
+      " SNS",
+      " S3",
+      " Kafka"
+    ],
+    "jobId": "4c726390-367b-4232-a2bd-9facd1bde0cc"
+  },
+  {
+    "jobTitle": "Angular Developer",
+    "jobOrg": "Unkown",
+    "jobLocation": "Toronto",
+    "applicationLink": "https://www.linkedin.com/jobs/search/?alertAction=viewjobs&currentJobId=3911285909&f_TPR=a1715384418-&origin=JOB_ALERT_EMAIL&savedSearchId=1737828245",
+    "jobDescription": "About the job\nOne of our TOP Banking clients is looking for a Angular Developer for 6 month contract-to-hire role. \n\n\n\n- Contract: 6 months initially, with potential for conversion to full-time at 8 months or sooner.\n- Target Start Date: ASAP\n- Work Location: Hybrid, 1 day a week in Toronto.\n\n\nJob Description:\n\n\n\nThe project involves developing a new web application to handle the transfer of client information, replacing an old platform.\n\n\n- Collaborate with backend teams to design and integrate RESTful interfaces.\n- Implement new features and update existing web application behaviors.\n- Document technical details for future product maintenance.\n\n\nMust-Have Qualifications:\n\n\n\n- RxJS for reactive programming.\n- 3-5 years of Angular experience (Angular 15/16).\n- Proficiency in REST principles (resolution states, request/response signaling, progress events, etc.).\n- TypeScript knowledge.\n- Experience with AWS.\n- Familiarity with Angular npm libraries.\n- Strong algorithm skills.\n- Comfortable with flexbox layout system.\n- Proficient with Git for source control.\n- Experience with front-end accessibility and web analytics (preferably Adobe analytics or similar).",
+    "deadline": "NA",
+    "experienceRequired": "3-5 years",
+    "techSkillsArr": [
+      "RxJS",
+      " Angular 15/16",
+      " REST principles",
+      " TypeScript",
+      " AWS",
+      " Angular npm libraries",
+      " Git",
+      " front-end accessibility",
+      " web analytics"
+    ],
+    "jobId": "93816a7b-4f0c-46f2-8143-e68f17bc899c"
+  },
+  {
+    "jobTitle": "Frontend Developer  ",
+    "jobOrg": "Matrica Consulting",
+    "jobLocation": "Unknown",
+    "applicationLink": "https://www.linkedin.com/jobs/view/3887765120/?midToken=AQFgN--t8rkTEg&midSig=09hHL421nLgXg1&trk=eml-email_application_confirmation_with_nba_01-applied_jobs-2-applied_job&trkEmail=eml-email_application_confirmation_with_nba_01-applied_jobs-2-applied_job-null-5xugsm%7Elw2nq6za%7Epa-null-neptune%2Fjobs%2Eview",
+    "jobDescription": "About the job\nJob Posting: Frontend Developer (Full-Time Contract Position)\n\n\n\nCompany: Matrica Consulting\n\n\nPosition Type: Full-Time, Contract\n\n\nAbout Matrica Consulting:\n\nMatrica Consulting is a software consultancy focusing on front-end architecture and development. With a small but growing team of highly experienced professionals, this project combines years of expertise across the full spectrum of technologies, creating an exciting opportunity to work with some of the most recognizable brands in the world. As we progress on a large, multi-year project, we are looking for a Frontend Developer to join our dynamic team. This is your chance to be part of a cutting-edge environment that operates with the agility and excitement of a startup.\n\n\n\nKey Responsibilities:\n\nDevelop and implement front-end web applications with React and TypeScript, ensuring high performance and responsiveness.\nWork closely with our experienced team to integrate frontend elements with backend logic and functionalities.\nAdapt to shifting roles and responsibilities in our versatile environment, echoing the fluidity and fast pace of a startup.\nEngage in the entire software development life cycle, from concept to deployment and beyond.\nEssential Skills & Experience:\n\nProficient in React, TypeScript, and State Management frameworks.\nDemonstrated experience in building responsive and scalable web applications.\nAbility to produce clean, efficient, and maintainable code.\nFamiliarity with embedded development would be an asset.\nFamiliarity with a broad range of technologies and a willingness to learn and adapt.\nPreferred Qualifications:\n\nBachelor’s degree in Computer Science or a related field or equivalent professional experience.\nProven ability to thrive in a startup-like environment, handling various responsibilities as needed.\nExceptional problem-solving skills and ability to meet tight deadlines.\nStrong communication skills and a collaborative spirit.\nWhat We Offer:\n\nA role within a small team of seasoned experts, offering vast learning opportunities.\nInvolvement in a significant, multi-year project.\nA dynamic, fast-paced work environment that fosters creativity and innovation.\nCompetitive compensation.\nHow to Apply:\n\nWe invite you to apply by sending your resume and a cover letter detailing your React and TypeScript experience to mark@matrica.ca.",
+    "deadline": "NA",
+    "experienceRequired": "NA",
+    "techSkillsArr": [
+      "React",
+      " TypeScript",
+      " State Management frameworks",
+      " embedded development"
+    ],
+    "jobId": "d42cbdb0-9a78-4be8-93d9-88b33390155e",
+    "status": "Applied"
   }
 ]

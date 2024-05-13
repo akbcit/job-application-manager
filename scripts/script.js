@@ -13,13 +13,55 @@ const getAllJobs = async () => {
   });
 };
 
+const parseInbox = async (emailFrom, searchDate) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `http://localhost:3004/api/job-alerts/gmail-parse/${emailFrom}/${searchDate}/`,
+      type: "GET",
+      success: function (response) {
+        resolve(response);
+      },
+      error: function (xhr, status, error) {
+        reject(error);
+      },
+    });
+  });
+};
+
+async function updateJobStatus(jobId, updatedStatus) {
+  try {
+    const response = await $.ajax({
+      url: `http://localhost:3004/api/job/update/${jobId}/${updatedStatus}`,
+      type: "PUT",
+    });
+    console.log("Update Response:", response);
+  } catch (error) {
+    console.error("Error updating job status:", error);
+  }
+}
+
+const getJobLinks = async () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "http://localhost:3004/api/job-alerts/links",
+      type: "GET",
+      success: function (response) {
+        resolve(response);
+      },
+      error: function (xhr, status, error) {
+        reject(error);
+      },
+    });
+  });
+};
+
 $(document).ready(async () => {
-  
   const jobTrackerTable = $("#job-tracker-table");
 
   async function populateJobs() {
     try {
       const response = await getAllJobs();
+      console.log(response);
       const jobs = response.allJobs;
       console.log(jobs);
       const $table = $("#job-tracker-table tbody");
@@ -30,32 +72,84 @@ $(document).ready(async () => {
         const descId = `desc-${index}`;
         const skillsId = `skills-${index}`;
         const $row = $(`
-                <tr>
-                    <td>${job.jobTitle}</td>
-                    <td>${job.experienceRequired}</td>
-                    <td>${job.jobOrg}</td>
-                    <td>${job.jobLocation}</td>
-                    <td><a href="${
-                      job.applicationLink
-                    }" target="_blank">Link</a></td>
-                    <td><button class="toggle-btn" onclick="$('#${descId}').toggle()">Toggle Description</button></td>
-                    <td>${job.deadline}</td>
-                    <td><button class="toggle-btn" onclick="$('#${skillsId}').toggle()">Toggle Skills</button></td>
-                    <td style="display: none;">${job.jobId}</td>
-                </tr>
-                <tr id="${descId}" style="display:none;">
-                    <td colspan="8">${job.jobDescription}</td>
-                </tr>
-                <tr id="${skillsId}" style="display:none;">
-                    <td colspan="8">${job.techSkillsArr.join(", ")}</td>
-                </tr>
-            `);
+            <tr>
+                <td>${job.jobTitle}</td>
+                <td>${job.experienceRequired}</td>
+                <td>${job.jobOrg}</td>
+                <td>${job.jobLocation}</td>
+                <td><a href="${
+                  job.applicationLink
+                }" target="_blank">Link</a></td>
+                <td><button class="toggle-btn" onclick="$('#${descId}').toggle()">Description</button></td>
+                <td>${job.deadline}</td>
+                <td><button class="toggle-btn" onclick="$('#${skillsId}').toggle()">Skills</button></td>
+                <td>
+                    <select name="statusDropdown" class="status-dropdown" data-job-id="${
+                      job.jobId
+                    }"><option value="Not Applied" ${
+                          job.status === "Not Applied" ? "selected" : ""
+                        }>Not Applied</option>
+                        <option value="Applied" ${
+                          job.status === "Applied" ? "selected" : ""
+                        }>Applied</option>
+                        <option value="Interviewed" ${
+                          job.status === "Interviewed" ? "selected" : ""
+                        }>Interviewed</option>
+                        <option value="Offered" ${
+                          job.status === "Offered" ? "selected" : ""
+                        }>Offered</option>
+                        <option value="Rejected" ${
+                          job.status === "Rejected" ? "selected" : ""
+                        }>Rejected</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="${descId}" style="display:none;">
+                <td colspan="8">${job.jobDescription}</td>
+            </tr>
+            <tr id="${skillsId}" style="display:none;">
+                <td colspan="8">${job.techSkillsArr.join(", ")}</td>
+            </tr>
+        `);
         $("#job-tracker-table tbody").append($row);
+      });
+
+      // After populating jobs
+      $("#job-tracker-table").on("change", ".status-dropdown", function () {
+        const jobId = $(this).data("job-id");
+        const updatedStatus = $(this).val();
+        updateJobStatus(jobId, updatedStatus);
       });
     } catch (error) {
       console.error("Error getting jobs:", error);
     }
   }
+
+  async function populateLinks() {
+    try {
+      const response = await getJobLinks();
+      const links = response.links;
+      console.log(links);
+      const $table = $("#links-tracker-table tbody");
+      $table.empty();
+
+      // Append each link to the table
+      links.forEach((link, index) => {
+        const $row = $(`
+                <tr>
+                <td><a href="${link.link}" target="_blank">Link</a></td>
+                    <td>${link.date}</td>
+                    <td>${link.source}</td>
+                </tr>
+            `);
+        $("#links-tracker-table tbody").append($row);
+      });
+    } catch (error) {
+      console.error("Error getting links:", error);
+    }
+  }
+
+  populateLinks();
 
   populateJobs();
 
@@ -93,6 +187,23 @@ $(document).ready(async () => {
   const accordionContent = $("#accordion-content");
 
   const alertElement = $(".form-alert");
+
+  $("#inbox-scan-form").on("submit", async function (event) {
+    event.preventDefault();
+    const emailFrom = $("#emailFrom").val();
+    const searchDate = $("#searchDate").val();
+    $(".scan-btn").prop("disabled", true).addClass("disabled");
+
+    try {
+      const response = await parseInbox(emailFrom, searchDate);
+      console.log("Response received:", response);
+      await populateLinks();
+    } catch (error) {
+      console.error("Error processing inbox:", error);
+    } finally {
+      $(".scan-btn").prop("disabled", false).removeClass("disabled");;
+    }
+  });
 
   accordionBtn.click(() => {
     console.log("hi");
