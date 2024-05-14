@@ -43,6 +43,130 @@ Video demo is added here - [Job Application Manager](https://vimeo.com/945574687
     ```bash
     yarn dev
     ```
+7. **Set up MongoDB**: Ensure that MongoDB is properly set up. Add the MongoDB details to your `.env` file as shown below:
+
+    ```env
+    MONGODB_DATASOURCE_NAME=your_datasource_name
+    MONGODB_DATABASE_NAME=your_database_name
+    MONGO_COLLECTION_NAME=your_collection_name
+    MONGO_API_KEY=your_mongo_api_key
+    MONGO_API_URL=your_mongo_api_url
+    GOOGLE_SCRIPT_URL=your_google_script_url
+
+8. **Set up the Google Script**: Create a new Google Apps Script project and add the following code to handle the POST requests and save email data to MongoDB. The script should be deployed and should have access to the email in which you are receiving your job alerts. Also, add the URL to your `.env`.
+
+## Google Apps Script
+
+        ```javascript
+        function doPost(e) {
+          var rawData = e.postData.getDataAsString();
+          var requestData;
+        
+          try {
+            requestData = JSON.parse(rawData);
+            console.log("Parsed Request Data: " + JSON.stringify(requestData));
+          } catch (error) {
+            console.log("Error parsing the POST data: " + error.toString());
+            return ContentService.createTextOutput("Error parsing POST data: " + error.toString());
+          }
+        
+          // Extract parameters from requestData
+          var emailFrom = requestData.emailFrom;
+          var collection = requestData.collection;
+          var database = requestData.database;
+          var dataSource = requestData.dataSource;
+          var apiKey = requestData.apiKey;
+          var mongoApiUrl = requestData.mongoApiUrl;
+          var searchDate = requestData.searchDate;
+        
+          // Validate that all required parameters are present
+          if (!emailFrom || !collection || !database || !dataSource || !apiKey || !mongoApiUrl || !searchDate) {
+            return ContentService.createTextOutput("One or more required parameters are missing.");
+          }
+        
+          var searchDateObj = new Date(searchDate);
+          var prevDay = new Date(searchDateObj);
+          prevDay.setDate(searchDateObj.getDate() - 1);
+        
+          // Format dates to 'yyyy/mm/dd' format required by Gmail search
+          var formattedSearchDate = Utilities.formatDate(searchDateObj, Session.getScriptTimeZone(), "yyyy/MM/dd");
+          var formattedPrevDay = Utilities.formatDate(prevDay, Session.getScriptTimeZone(), "yyyy/MM/dd");
+        
+          // Modify the Gmail search to include the date and sender
+          var threads = GmailApp.search(`from:${emailFrom} after:${formattedPrevDay} before:${formattedSearchDate}`);
+          Logger.log("Found " + threads.length + " threads.");
+          var totalEmailsParsed = 0;
+          var emailsProcessed = 0;
+          var successfulInserts = 0;
+          var failedInserts = 0;
+        
+          threads.forEach(thread => {
+            var messages = thread.getMessages();
+            totalEmailsParsed += messages.length;
+            messages.forEach(message => {
+              emailsProcessed++;
+              var subject = message.getSubject();
+              var body = message.getPlainBody();
+              var links = extractLinks(body);
+        
+              // Prepare the data for MongoDB
+              var data = JSON.stringify({
+                "collection": collection,
+                "database": database,
+                "dataSource": dataSource,
+                "document": {
+                  "sender": emailFrom,
+                  "date": searchDate,
+                  "subject": subject,
+                  "body": body,
+                  "links": links
+                }
+              });
+        
+              var options = {
+                "method": "post",
+                "contentType": "application/json",
+                "headers": {
+                  "api-key": apiKey,
+                },
+                "payload": data
+              };
+        
+              // Send the data to MongoDB
+              var response = UrlFetchApp.fetch(mongoApiUrl, options);
+              var jsonResponse = JSON.parse(response.getContentText());
+        
+              if (response.getResponseCode() == 200 && jsonResponse.insertedId) {
+                successfulInserts++;
+              } else {
+                Logger.log("Failed to insert: " + (jsonResponse.errorMessage || "No error message provided"));
+                failedInserts++;
+              }
+        
+              // Optionally mark message as read
+              message.markRead();
+            });
+          });
+        
+          var resultMessage = "Total emails parsed: " + totalEmailsParsed +
+            ", Emails processed: " + emailsProcessed +
+            ", Successful inserts: " + successfulInserts +
+            ", Failed inserts: " + failedInserts + ".";
+          Logger.log(resultMessage);
+          return ContentService.createTextOutput(resultMessage);
+        }
+        
+        function extractLinks(text) {
+          var links = [];
+          var regex = /(https?:\/\/[^\s]+)/g;
+          var match;
+          while ((match = regex.exec(text)) !== null) {
+            links.push(match[0]);
+          }
+          return links;
+        }
+
+
 
 ## Roadmap
 1. **Status Update**: Enhance the application to modify tracked jobs and update their status seamlessly.
