@@ -3,6 +3,7 @@ import { addJobToTracker } from '../data/utils/addJobToTracker.js';
 import { updateJobStatus } from '../data/utils/updateJobStatus.js';
 import { getAllJobsFromTracker } from '../data/utils/getAllJobsFromTracker.js';
 import { summarizeJDLLM } from '../llm/llmMethods/llmMethods.js';
+import { deleteJobById } from '../data/utils/deleteJobById.js';
 
 export const getUpdatedSummaryFromLLM = async (req, res) => {
     const currentSummary = req.body;
@@ -31,6 +32,12 @@ export const updateStatus = async (req, res) => {
     const updatedStatus = req.params.updatedStatus;
     await updateJobStatus(jobId,updatedStatus);
     return res.status(200).send({success:"Updated"});
+};
+
+export const deleteJob = async (req, res) => {
+    const jobId = req.params.jobId;
+    await deleteJobById(jobId);
+    return res.status(200).send({success:"Deleted"});
 };
 
 export const getAllJobs = async (req, res) => {

@@ -54,7 +54,8 @@
       " RESTful APIs",
       " Git"
     ],
-    "jobId": "8547a2f6-352d-4539-a0ba-14aff0d13c10"
+    "jobId": "8547a2f6-352d-4539-a0ba-14aff0d13c10",
+    "status": "Applied"
   },
   {
     "jobTitle": "Intern, Software Development",
@@ -78,28 +79,8 @@
       " S3",
       " Kafka"
     ],
-    "jobId": "4c726390-367b-4232-a2bd-9facd1bde0cc"
-  },
-  {
-    "jobTitle": "Angular Developer",
-    "jobOrg": "Unkown",
-    "jobLocation": "Toronto",
-    "applicationLink": "https://www.linkedin.com/jobs/search/?alertAction=viewjobs&currentJobId=3911285909&f_TPR=a1715384418-&origin=JOB_ALERT_EMAIL&savedSearchId=1737828245",
-    "jobDescription": "About the job\nOne of our TOP Banking clients is looking for a Angular Developer for 6 month contract-to-hire role. \n\n\n\n- Contract: 6 months initially, with potential for conversion to full-time at 8 months or sooner.\n- Target Start Date: ASAP\n- Work Location: Hybrid, 1 day a week in Toronto.\n\n\nJob Description:\n\n\n\nThe project involves developing a new web application to handle the transfer of client information, replacing an old platform.\n\n\n- Collaborate with backend teams to design and integrate RESTful interfaces.\n- Implement new features and update existing web application behaviors.\n- Document technical details for future product maintenance.\n\n\nMust-Have Qualifications:\n\n\n\n- RxJS for reactive programming.\n- 3-5 years of Angular experience (Angular 15/16).\n- Proficiency in REST principles (resolution states, request/response signaling, progress events, etc.).\n- TypeScript knowledge.\n- Experience with AWS.\n- Familiarity with Angular npm libraries.\n- Strong algorithm skills.\n- Comfortable with flexbox layout system.\n- Proficient with Git for source control.\n- Experience with front-end accessibility and web analytics (preferably Adobe analytics or similar).",
-    "deadline": "NA",
-    "experienceRequired": "3-5 years",
-    "techSkillsArr": [
-      "RxJS",
-      " Angular 15/16",
-      " REST principles",
-      " TypeScript",
-      " AWS",
-      " Angular npm libraries",
-      " Git",
-      " front-end accessibility",
-      " web analytics"
-    ],
-    "jobId": "93816a7b-4f0c-46f2-8143-e68f17bc899c"
+    "jobId": "4c726390-367b-4232-a2bd-9facd1bde0cc",
+    "status": "Applied"
   },
   {
     "jobTitle": "Frontend Developer  ",

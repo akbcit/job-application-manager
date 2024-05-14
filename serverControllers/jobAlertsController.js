@@ -73,12 +73,13 @@ export const getAllLinks = async (req, res) => {
     let links = [];
     if (emails) {
       emails.forEach((email) => {
-        email.links.forEach((link) => {
+        email.links.forEach((link,index) => {
           if (!link.includes("unsub")) {
             const linkObj = {
               source: email.sender,
               date: email.date,
               link: link,
+              linkId:`${email.id}-${index}`
             };
             links.push(linkObj);
           }
@@ -91,5 +92,16 @@ export const getAllLinks = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).send({ error: "No links found" });
+  }
+};
+
+export const deleteLink = (req, res) => {
+  const linkId = decodeURIComponent(req.params.linkId);
+  console.log(linkId);
+  const response = jobAlertEmailRepo.deleteLink(linkId);
+  if (response) {
+    return res.status(200).send({ success: "Link deleted!" });
+  } else {
+    return res.status(500).send({ error: "Could not delete" });
   }
 };
