@@ -13,6 +13,36 @@ const getAllJobs = async () => {
   });
 };
 
+const deleteJob = async (jobId) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `http://localhost:3004/api/job/${jobId}`,
+      type: "DELETE",
+      success: function (response) {
+        resolve(response);
+      },
+      error: function (xhr, status, error) {
+        reject(error);
+      },
+    });
+  });
+};
+
+const deleteLink = async (linkId) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `http://localhost:3004/api/job-alerts/links/${linkId}`,
+      method: "DELETE",
+      success: function (response) {
+        resolve(response);
+      },
+      error: function (xhr, status, error) {
+        reject(error);
+      },
+    });
+  });
+};
+
 const parseInbox = async (emailFrom, searchDate) => {
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -87,8 +117,8 @@ $(document).ready(async () => {
                     <select name="statusDropdown" class="status-dropdown" data-job-id="${
                       job.jobId
                     }"><option value="Not Applied" ${
-                          job.status === "Not Applied" ? "selected" : ""
-                        }>Not Applied</option>
+          job.status === "Not Applied" ? "selected" : ""
+        }>Not Applied</option>
                         <option value="Applied" ${
                           job.status === "Applied" ? "selected" : ""
                         }>Applied</option>
@@ -102,6 +132,9 @@ $(document).ready(async () => {
                           job.status === "Rejected" ? "selected" : ""
                         }>Rejected</option>
                     </select>
+                    <td><button class="delete-btn" data-job-id="${
+                      job.jobId
+                    }">Delete</button></td>
                 </td>
             </tr>
             <tr id="${descId}" style="display:none;">
@@ -120,6 +153,17 @@ $(document).ready(async () => {
         const updatedStatus = $(this).val();
         updateJobStatus(jobId, updatedStatus);
       });
+
+      $("#job-tracker-table").on(
+        "click",
+        ".delete-btn",
+        async function (event) {
+          event.preventDefault();
+          const jobId = $(this).data("job-id");
+          await deleteJob(jobId);
+          await populateJobs();
+        }
+      );
     } catch (error) {
       console.error("Error getting jobs:", error);
     }
@@ -140,10 +184,23 @@ $(document).ready(async () => {
                 <td><a href="${link.link}" target="_blank">Link</a></td>
                     <td>${link.date}</td>
                     <td>${link.source}</td>
+                    <td><button class="delete-btn" data-link="${link.linkId}">Delete</button></td>
                 </tr>
             `);
         $("#links-tracker-table tbody").append($row);
       });
+
+      // After populating links
+      $("#links-tracker-table").on(
+        "click",
+        ".delete-btn",
+        async function (event) {
+          event.preventDefault();
+          const linkId = $(this).data("link");
+          await deleteLink(linkId);
+          await populateLinks();
+        }
+      );
     } catch (error) {
       console.error("Error getting links:", error);
     }
@@ -201,7 +258,7 @@ $(document).ready(async () => {
     } catch (error) {
       console.error("Error processing inbox:", error);
     } finally {
-      $(".scan-btn").prop("disabled", false).removeClass("disabled");;
+      $(".scan-btn").prop("disabled", false).removeClass("disabled");
     }
   });
 

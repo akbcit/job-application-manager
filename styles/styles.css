@@ -593,3 +593,18 @@ button.scan-btn.disabled {
 button.scan-btn:hover {
     background-color: #0056b3;
 }
+
+.delete-btn{
+    background-color: #ff2600;
+    color: white;
+    border: none;
+    padding: 2px 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #930a00;
+}

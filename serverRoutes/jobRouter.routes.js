@@ -1,5 +1,5 @@
 import express from "express";
-import { getUpdatedSummaryFromLLM,addToTracker,summarizeJD,getAllJobs,updateStatus } from "../serverControllers/jobController.js";
+import { getUpdatedSummaryFromLLM,addToTracker,summarizeJD,getAllJobs,updateStatus,deleteJob } from "../serverControllers/jobController.js";
 
 export const jobRouter = express.Router();
 
@@ -12,3 +12,5 @@ jobRouter.post("/add-job",addToTracker);
 jobRouter.get("/",getAllJobs);
 
 jobRouter.put("/update/:jobId/:updatedStatus",updateStatus);
+
+jobRouter.delete("/:jobId",deleteJob);
