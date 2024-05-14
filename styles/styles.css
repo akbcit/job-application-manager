@@ -238,14 +238,14 @@ a:hover {
     html {
         width: 100%;
         max-width: 100%;
-        padding: 0;
+        padding: 20;
         margin: 0;
         font-size: smaller;
         /* Adjust font size if necessary */
     }
 
     .resume {
-        width: 100%;
+        width: 95%;
         max-width: 100%;
         padding: 10px;
         box-shadow: none !important;
