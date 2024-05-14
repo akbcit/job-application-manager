@@ -27,8 +27,6 @@ export const parseGmailInbox = async (req, res) => {
     searchDate: searchDate,
   };
 
-  console.log(params);
-
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -38,6 +36,8 @@ export const parseGmailInbox = async (req, res) => {
   });
 
   const responseData = await response.text();
+  
+  console.log(responseData);
   return res.send(responseData);
 };
 
@@ -58,6 +58,7 @@ export const getAllEmails = async (req, res) => {
 export const deleteAllEmails = async (req, res) => {
   try {
     const result = await jobAlertEmailRepo.deleteAllEmails();
+    console.log(result)
     return res
       .status(200)
       .send({ message: "All emails deleted successfully", result });
@@ -74,7 +75,7 @@ export const getAllLinks = async (req, res) => {
     if (emails) {
       emails.forEach((email) => {
         email.links.forEach((link,index) => {
-          if (!link.includes("unsub")) {
+          if (link && !link.includes("unsub")) {
             const linkObj = {
               source: email.sender,
               date: email.date,
