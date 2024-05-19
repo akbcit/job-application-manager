@@ -7,6 +7,7 @@ import { AppRoute } from './clientModels/route.model';
 import NavBar from './components/NavBar';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './globalStates/authState';
+import { CheckAuth } from './components/CheckAuth';
 
 const clientId = '474325549248-hqou83qck43h5ol1g2u64jds1lho72ia.apps.googleusercontent.com';
 
@@ -17,13 +18,15 @@ const App: React.FC = () => {
       <GoogleOAuthProvider clientId={clientId}>
         <BrowserRouter>
           <NavBar />
-          <div id="page-outlet">
-            <Routes>
-              {routes.map((route: AppRoute, index: number) => (
-                <Route key={index} path={route.path} element={<route.page />} />
-              ))}
-            </Routes>
-          </div>
+          <CheckAuth>
+            <div id="page-outlet">
+              <Routes>
+                {routes.map((route: AppRoute, index: number) => (
+                  <Route key={index} path={route.path} element={<route.page />} />
+                ))}
+              </Routes>
+            </div>
+          </CheckAuth>
         </BrowserRouter>
       </GoogleOAuthProvider>
     </AuthProvider>

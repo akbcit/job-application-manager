@@ -4,6 +4,7 @@ import { User } from "../clientModels/user.model";
 import { TokenResponse } from '../clientModels/tokenResponse.model';
 import axiosInstance from '../network/axiosInstance';
 
+
 interface AuthContextType {
     isAuthenticated: boolean;
     user: User | null;
@@ -12,6 +13,7 @@ interface AuthContextType {
     handleLogin: (tokenResponse: TokenResponse, source: string) => void;
     handleLogout: () => void;
     authSource: string;
+    authLoading: boolean;
 }
 
 const AuthContextInitialValue: AuthContextType = {
@@ -22,6 +24,7 @@ const AuthContextInitialValue: AuthContextType = {
     handleLogin: () => { },
     handleLogout: () => { },
     authSource: "",
+    authLoading: true,
 };
 
 const AuthContext = createContext<AuthContextType>(AuthContextInitialValue);
@@ -35,9 +38,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<User | null>(null);
     const [authSource, setAuthSource] = useState<string>("");
+    const [authLoading, setAuthLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        // check if user is present in localStorage
+        setAuthLoading(true);
         const user = localStorage.getItem("user");
         const source = localStorage.getItem("source");
         if (user && source) {
@@ -50,6 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setAuthSource("");
             setIsAuthenticated(false);
         }
+        setAuthLoading(false);
     }, [])
 
     const handleLogin = async (tokenResponse: TokenResponse, source: string) => {
@@ -90,7 +95,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, authSource, handleLogout }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, authSource, handleLogout ,authLoading}}>
             {children}
         </AuthContext.Provider>
     );

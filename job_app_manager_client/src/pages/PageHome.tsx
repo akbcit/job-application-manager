@@ -1,13 +1,12 @@
 
 
-const PageHome: React.FC = () => {
+export const PageHome: React.FC = () => {
 
     return (
-        <div>
+        <div className="page-home page">
 
         </div>
     )
 
 }
 
-export default PageHome;
