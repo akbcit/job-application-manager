@@ -9,7 +9,7 @@ import { useAuth } from "../globalStates/authState";
 
 const NavMenu = () => {
 
-    const {isAuthenticated} = useAuth();
+    const { isAuthenticated } = useAuth();
 
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const NavMenu = () => {
 
     const open = Boolean(anchorEl);
 
-    const {login,logout} = useGoogleAuth();
+    const { login, logout } = useGoogleAuth();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -50,6 +50,7 @@ const NavMenu = () => {
                     handleClose();
                 }}>Home</MenuItem>
                 {!isAuthenticated && <MenuItem onClick={() => login()}>Login with Google</MenuItem>}
+                {isAuthenticated && <MenuItem onClick={() => navigate("/dashboard")}>Dashboard</MenuItem>}
                 {isAuthenticated && <MenuItem onClick={() => logout()}>Logout</MenuItem>}
             </Menu>
         </>
