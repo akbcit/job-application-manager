@@ -1,0 +1,10 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#page-outlet{
+  max-width: 1280px;
+  padding: 2rem;
+}
+

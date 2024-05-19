@@ -1,16 +1,51 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { jobRouter } from "./serverRoutes/jobRouter.routes.js";
-import { resumeRouter } from "./serverRoutes/resume.routes.js";
-import { jobAlertsRouter } from "./serverRoutes/jobAlerts.routes.js";
 import cors from "cors";
 import logger from "morgan";
 import mongoose from "mongoose";
+import session from "express-session";
+import connectMongo from "connect-mongo";
+
+import { jobRouter } from "./serverRoutes/jobRouter.routes.js";
+import { resumeRouter } from "./serverRoutes/resume.routes.js";
+import { jobAlertsRouter } from "./serverRoutes/jobAlerts.routes.js";
+import { authRouter } from "./serverRoutes/auth.routes.js";
 
 dotenv.config();
 
-const app = new express();
+const app = express();
+
+// Connect to MongoDB
+const uri = process.env.MONGODB_URI;
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on("connected", () => {
+  console.log("Connected to MongoDB");
+});
+db.on("error", (error) => {
+  console.error(`MongoDB connection error: ${error}`);
+});
+
+// Configure session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: connectMongo.create({
+      mongoUrl: uri,
+      collectionName: "Sessions",
+      ttl: 14 * 24 * 60 * 60, // 14 days
+    }),
+    cookie: {
+      maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
+    },
+  })
+);
 
 app.use(logger("combined"));
 
@@ -19,17 +54,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-// connect to mongoDB
-const uri = process.env.MONGODB_URI;
-mongoose.connect(uri);
-const db = mongoose.connection;
-db.on("connected", () => {
-  console.log("Connected to MongoDB");
-});
-db.on("error", (error) => {
-  console.log(`MongoDB connection error: ${error}`);
-});
-
 app.get("/", (req, res) => {
   res.send("hi");
 });
@@ -37,9 +61,10 @@ app.get("/", (req, res) => {
 app.use("/api/job", jobRouter);
 app.use("/api/resume", resumeRouter);
 app.use("/api/job-alerts", jobAlertsRouter);
+app.use("/api/auth", authRouter);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`server listening on PORT: ${PORT}`);
+  console.log(`Server listening on PORT: ${PORT}`);
 });
