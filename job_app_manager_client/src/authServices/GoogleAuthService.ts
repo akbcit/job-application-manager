@@ -1,20 +1,30 @@
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
-import { TokenResponse } from '../clientModels/tokenResponse.model';
 import { AuthService } from '../clientModels/authService.model';
 import { useAuth } from '../globalStates/authState';
-
+import axios from 'axios';
 
 export const useGoogleAuth = (): AuthService => {
     const { handleLogin, handleLogout } = useAuth();
 
     const login = useGoogleLogin({
-        onSuccess: (tokenResponse: TokenResponse) => {
-            handleLogin(tokenResponse, "google");
+        flow: 'auth-code',
+        onSuccess: async (codeResponse) => {
+            console.log(codeResponse)
+            try {
+                // Exchange authorization code for tokens
+                const response = await axios.post("/api/auth/google", codeResponse);
+                const loginResponse = response.data;
+                handleLogin(loginResponse, "google");
+            } catch (error) {
+                console.error('Failed to exchange authorization code for tokens', error);
+                handleLogout();
+            }
         },
         onError: () => {
-            console.log("hi")
+            console.log("Login error");
             handleLogout();
         },
+        scope: 'openid email profile',
     });
 
     const logout = () => {
@@ -22,14 +32,8 @@ export const useGoogleAuth = (): AuthService => {
         handleLogout();
     };
 
-    const getToken = (): TokenResponse | null => {
-        const token = localStorage.getItem('googleToken');
-        return token ? JSON.parse(token) : null;
-    };
-
     return {
         login,
-        logout,
-        getToken,
+        logout
     };
 };

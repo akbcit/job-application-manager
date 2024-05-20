@@ -8,6 +8,10 @@ import NavBar from './components/NavBar';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './globalStates/authState';
 import { CheckAuth } from './components/CheckAuth';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a queryClient
+const queryClient = new QueryClient();
 
 const clientId = '474325549248-hqou83qck43h5ol1g2u64jds1lho72ia.apps.googleusercontent.com';
 
@@ -16,18 +20,20 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <GoogleOAuthProvider clientId={clientId}>
-        <BrowserRouter>
-          <NavBar />
-          <CheckAuth>
-            <div id="page-outlet">
-              <Routes>
-                {routes.map((route: AppRoute, index: number) => (
-                  <Route key={index} path={route.path} element={<route.page />} />
-                ))}
-              </Routes>
-            </div>
-          </CheckAuth>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <NavBar />
+            <CheckAuth>
+              <div id="page-outlet">
+                <Routes>
+                  {routes.map((route: AppRoute, index: number) => (
+                    <Route key={index} path={route.path} element={<route.page />} />
+                  ))}
+                </Routes>
+              </div>
+            </CheckAuth>
+          </BrowserRouter>
+        </QueryClientProvider>
       </GoogleOAuthProvider>
     </AuthProvider>
 

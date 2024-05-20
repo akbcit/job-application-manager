@@ -1,7 +1,7 @@
 // src/context/AuthContext.tsx
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { User } from "../clientModels/user.model";
-import { TokenResponse } from '../clientModels/tokenResponse.model';
+import { LoginResponse } from '../clientModels/loginResponse.model';
 import axiosInstance from '../network/axiosInstance';
 
 
@@ -10,7 +10,7 @@ interface AuthContextType {
     user: User | null;
     setIsAuthenticated: (isAuthenticated: boolean) => void;
     setUser: (user: User | null) => void;
-    handleLogin: (tokenResponse: TokenResponse, source: string) => void;
+    handleLogin: (tokenResponse: LoginResponse, source: string) => void;
     handleLogout: () => void;
     authSource: string;
     authLoading: boolean;
@@ -57,26 +57,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAuthLoading(false);
     }, [])
 
-    const handleLogin = async (tokenResponse: TokenResponse, source: string) => {
+    const handleLogin = async (loginResponse: LoginResponse, source: string) => {
+        const { userDetails, accessToken } = loginResponse;
+        localStorage.setItem(`accessToken`, JSON.stringify(accessToken));
+        localStorage.setItem(`user`, JSON.stringify(userDetails));
+        localStorage.setItem(`source`, source);
+        setUser(userDetails);
+        setIsAuthenticated(true);
         setAuthSource(source);
-        localStorage.setItem(`accessToken`, JSON.stringify(tokenResponse.access_token));
-        try {
-            const response = await axiosInstance.post(`/auth/${source}`, { token: tokenResponse.access_token });
-            console.log(response)
-            if (response.data) {
-                setUser(response.data);
-                localStorage.setItem("user", JSON.stringify(response.data));
-                localStorage.setItem("source", JSON.stringify(source));
-                setIsAuthenticated(true);
-            }
-            else {
-                console.error("Unable to login");
-            }
-        }
-        catch (err) {
-            console.error(err);
-        }
-
     }
 
     const handleLogout = () => {
@@ -95,7 +83,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, authSource, handleLogout ,authLoading}}>
+        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, authSource, handleLogout, authLoading }}>
             {children}
         </AuthContext.Provider>
     );
