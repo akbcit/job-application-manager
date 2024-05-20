@@ -11,6 +11,9 @@ import { jobRouter } from "./serverRoutes/jobRouter.routes.js";
 import { resumeRouter } from "./serverRoutes/resume.routes.js";
 import { jobAlertsRouter } from "./serverRoutes/jobAlerts.routes.js";
 import { authRouter } from "./serverRoutes/auth.routes.js";
+import { profileRouter } from "./serverRoutes/profile.routes.js";
+import cookieParser from "cookie-parser";  
+
 
 dotenv.config();
 
@@ -49,9 +52,10 @@ app.use(
 
 app.use(logger("combined"));
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -62,6 +66,7 @@ app.use("/api/job", jobRouter);
 app.use("/api/resume", resumeRouter);
 app.use("/api/job-alerts", jobAlertsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/profile", profileRouter);
 
 const PORT = process.env.PORT || 3000;
 
