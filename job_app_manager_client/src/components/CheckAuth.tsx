@@ -1,6 +1,6 @@
 import { Paper } from "@mui/material";
 import { useAuth } from "../globalStates/authState.tsx";
-import { ErrorAlert } from "./ErrorAltert.tsx";
+import { ErrorAlert } from "./ErrorAlert.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
 
 interface CheckAuthProps {
