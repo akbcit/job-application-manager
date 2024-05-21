@@ -1,4 +1,4 @@
-import { JobAlertEmail } from "./mongoModels/jobAlertEmailSchema.mongo.model.js";
+import { JobAlertEmail } from "../mongoModels/jobAlertEmailSchema.mongo.model.js";
 
 export class JobAlertEmailRepo {
   async getAllEmails() {

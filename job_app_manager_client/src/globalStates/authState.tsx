@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 import { User } from "../clientModels/user.model";
 import { LoginResponse } from '../clientModels/loginResponse.model';
 import axiosInstance from '../network/axiosInstance';
-
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -39,6 +39,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [authSource, setAuthSource] = useState<string>("");
     const [authLoading, setAuthLoading] = useState<boolean>(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setAuthLoading(true);
@@ -80,6 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         localStorage.removeItem('source');
+        navigate("/")
     }
 
     return (

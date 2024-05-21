@@ -4,7 +4,7 @@ import axios from 'axios';
 const getAccessToken = () => localStorage.getItem('accessToken');
 
 // Function to save the access token
-const saveAccessToken = (token) => localStorage.setItem('accessToken', token);
+const saveAccessToken = (token:string) => localStorage.setItem('accessToken', token);
 
 
 // Create an instance of axios

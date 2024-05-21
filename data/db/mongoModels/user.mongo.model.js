@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique:true,
   },
   source: {
     type: String,
@@ -21,9 +22,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  pictureUrl:{
-    type:String,
-  }
+  pictureUrl: {
+    type: String,
+  },
+  role: {
+    type: String,
+  },
 });
 
 export const User = mongoose.model("Users", userSchema);
