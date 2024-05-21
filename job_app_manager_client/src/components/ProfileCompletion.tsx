@@ -3,9 +3,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 function ProfileCompletion(props: CircularProgressProps & { value: number }) {
+  const normalizedValue = props.value * 100;
+  
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" {...props} />
+      <CircularProgress variant="determinate" {...props} value={normalizedValue} />
       <Box
         sx={{
           top: 0,
@@ -18,8 +20,8 @@ function ProfileCompletion(props: CircularProgressProps & { value: number }) {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}%`}
+        <Typography variant="caption" component="div" color="white">
+          {`${Math.round(normalizedValue)}%`}
         </Typography>
       </Box>
     </Box>
