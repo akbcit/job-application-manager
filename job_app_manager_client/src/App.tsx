@@ -18,10 +18,11 @@ const clientId = '474325549248-hqou83qck43h5ol1g2u64jds1lho72ia.apps.googleuserc
 const App: React.FC = () => {
 
   return (
-    <AuthProvider>
-      <GoogleOAuthProvider clientId={clientId}>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <GoogleOAuthProvider clientId={clientId}>
+          <QueryClientProvider client={queryClient}>
+
             <NavBar />
             <CheckAuth>
               <div id="page-outlet">
@@ -32,11 +33,10 @@ const App: React.FC = () => {
                 </Routes>
               </div>
             </CheckAuth>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
-    </AuthProvider>
-
+          </QueryClientProvider>
+        </GoogleOAuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

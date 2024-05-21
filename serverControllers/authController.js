@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { UserRepo } from "../data/db/user.repo.js";
+import { UserRepo } from "../data/db/mongoRepos/user.repo.js";
 import { getNewAccessToken } from "../auth/googleAuth/getNewAccessToken.js";
 import { verifyGoogleToken } from "../auth/googleAuth/verifyGoogleToken.js";
 

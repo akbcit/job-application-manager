@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import { JobAlertEmailRepo } from "../data/db/jobAlertEmail.repo.js";
+import { JobAlertEmailRepo } from "../data/db/mongoRepos/jobAlertEmail.repo.js";
 dotenv.config();
 
 const jobAlertEmailRepo = new JobAlertEmailRepo();
