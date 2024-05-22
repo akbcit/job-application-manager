@@ -6,3 +6,5 @@ export const resumeRouter = express.Router();
 
 resumeRouter.get("/pdf",getResume);
 
+resumeRouter.patch("/update-resume")
+

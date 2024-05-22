@@ -1,30 +1,76 @@
-#profile-panel{
+#profile-panel {
     background-color: black;
     padding: 20px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     color: white;
-    gap:40px;
+    gap: 200px;
+
+    @media (max-width: 1100px) {
+        gap: 150px;
+    }
+
+    @media (max-width: 1000px) {
+        gap: 50px;
+    }
+
+    @media (max-width: 770px) {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 40px;
+    }
+
 }
 
-#avatar-pic{
+#avatar-name {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    @media (max-width: 770px) {
+        width: 100%;
+    }
+}
+
+#avatar-pic {
     height: 200px;
     width: 200px;
 }
 
-#candidate-name{
+#candidate-name {
     font-size: 1.6rem;
 }
 
-#profile-section-2{
+#profile-section-2 {
+
+    .score-sibling {
+        margin-top: 10px;
+    }
+}
+
+.profile-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap:25px;
-    .score-sibling{
-        margin-top: 10px;
+    gap: 25px;
+    height: 100%;
+
+    @media (max-width: 750px) {
+        min-width: 100%;
+    }
+}
+
+.profile-labels-with-tooltip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    &.disabled {
+        color: gray;
     }
 }

@@ -12,17 +12,29 @@ import { calculateProfileCompletion } from "../utils/calculateProfileCompletion"
 import ProfileCompletion from "./ProfileCompletion";
 import InfoIcon from '@mui/icons-material/Info';
 import { OvalButtonGreen } from "./OvalButtonGreen";
+import { JobSearchModeSwitch } from "./JobSearchModeSwitch";
+import { GenericBackDrop } from "./GenericBackDrop";
+import { ResumeEditor } from "./ResumeEditor";
 
 export const ProfilePanel = () => {
 
     const { user } = useAuth();
     const [profileCompletion, setProfileCompletion] = useState<number>(0);
     const [candidateDetails, setCandidateDetails] = useState<CandidateVM | null>(null);
+    const [jobSearchMode, setJobSearchMode] = useState<boolean>(false);
+    const [resumeEditorOpen, setResumeEditorOpen] = useState<boolean>(false);
+
+    const closeResumeEditor = () => {
+        if (resumeEditorOpen) {
+            setResumeEditorOpen(false);
+        }
+    }
 
     const profileQuery = useQuery({
         queryKey: ['getProfile'],
         queryFn: () => getProfile(user?.email as string),
     });
+
 
     useEffect(() => {
         if (profileQuery.data && profileQuery.data.candidateDetails) {
@@ -39,41 +51,74 @@ export const ProfilePanel = () => {
     }
 
     const resumeBtnClick = () => {
-        // Button click handler logic
+        if(!resumeEditorOpen){
+            setResumeEditorOpen(true);
+        }
     };
 
+    const onJobSearchModeToggle = (newToggledState: boolean) => {
+        setJobSearchMode(newToggledState);
+    }
+
     return (
-        <Paper elevation={3} id="profile-panel">
+        <>
+            <Paper elevation={3} id="profile-panel">
+                <div id="avatar-name">
+                    <Avatar id="avatar-pic">
+                        <img src={user?.pictureUrl ? user.pictureUrl : placeHolderProfile} alt="User Avatar" style={{ width: '100%', height: '100%' }} />
+                    </Avatar>
+                    <Box id="candidate-name">
+                        {`${user?.firstName} ${user?.lastName ? user?.lastName : ""}`}
+                    </Box>
+                </div>
 
-            <Stack id="avatar-name" direction="column" spacing={1} alignItems="center" justifyContent="center">
-                <Avatar id="avatar-pic">
-                    <img src={user?.pictureUrl ? user.pictureUrl : placeHolderProfile} alt="User Avatar" style={{ width: '100%', height: '100%' }} />
-                </Avatar>
-                <Box id="candidate-name">
-                    {`${user?.firstName} ${user?.lastName ? user?.lastName : ""}`}
-                </Box>
-            </Stack>
-
-            <div id="profile-section-2">
-                <Stack direction="row" alignItems="center" justifyContent="flex-start" spacing={1}>
-                    <Typography variant="body1" sx={{ ml: 1 }} component="div" color="#15d196">
-                        Profile Score
+                <div id="profile-section-2" className="profile-section">
+                    <Stack direction="row" alignItems="center" justifyContent="flex-start">
+                        <Typography variant="body1" sx={{ ml: 1 }} color="#15d196">
+                            Profile Score
+                        </Typography>
+                        <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
+                        <ProfileCompletion value={profileCompletion} />
+                    </Stack>
+                    <OvalButtonGreen onButtonClick={resumeBtnClick} content="Add Resume" />
+                    <Typography variant="body1" color="#15d196" className="score-sibling">
+                        Location
                     </Typography>
-                    <Tooltip title="Add Resume to increase score">
-                        <InfoIcon sx={{ color: "#15d196" }} />
-                    </Tooltip>
-                    <ProfileCompletion value={profileCompletion} />
-                </Stack>
-                <OvalButtonGreen onButtonClick={resumeBtnClick} content="Add Resume"/>
-                <Typography variant="body1" color="#15d196" className="score-sibling">
-                    Location:
-                </Typography>
-                <Typography variant="body1" color="#15d196" className="score-sibling">
-                    Skills:
-                </Typography>
-            </div>
-            <Stack id="profile-section-3" direction="column" spacing={1} alignItems="center">
-            </Stack>
-        </Paper>
+                    <Typography variant="body1" color="#15d196" className="score-sibling">
+                        Skills
+                    </Typography>
+                </div>
+                <div id="profile-section-3" className="profile-section">
+                    <JobSearchModeSwitch onToggle={onJobSearchModeToggle} defaultValue={jobSearchMode} switchLabel={`${!jobSearchMode ? "Start Job Search" : "End Job Search"}`} />
+                    <Box id="job-applied-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                        <Typography variant="body1">
+                            Jobs Applied
+                        </Typography>
+                        <Tooltip title="Start Job Search To Activate">
+                            <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
+                        </Tooltip>
+                    </Box>
+                    <Box id="active-job-processes-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                        <Typography variant="body1">
+                            Active Processes
+                        </Typography>
+                        <Tooltip title="Start Job Search To Activate">
+                            <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
+                        </Tooltip>
+                    </Box>
+                    <Box id="links-in-tray-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                        <Typography variant="body1">
+                            Links in Tray
+                        </Typography>
+                        <Tooltip title="Start Job Search To Activate">
+                            <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
+                        </Tooltip>
+                    </Box>
+                </div>
+            </Paper>
+            <GenericBackDrop open={resumeEditorOpen} handleClose={closeResumeEditor}>
+                <ResumeEditor />
+            </GenericBackDrop>
+        </>
     );
 };
