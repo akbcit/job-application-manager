@@ -1,0 +1,70 @@
+.resume-editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 95vh;
+
+
+    .MuiStepper-root {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+    }
+
+    .content-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        max-height: fit-content;
+        justify-content: center; /* Center content vertically within the container */
+        align-items: center; /* Center content horizontally */
+        min-height: calc(100vh - 130px); /* Ensure it takes at least the available space */
+    }
+
+    .form-section {
+        margin: 16px 0;
+
+        .MuiTextField-root {
+            margin-bottom: 16px;
+        }
+
+        .MuiIconButton-root {
+            margin-left: 8px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px;
+
+        .content-container {
+            padding: 10px 0;
+        }
+
+        .MuiStepper-root {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .MuiStepLabel-label {
+            font-size: 0.875rem;
+        }
+
+        .MuiStep-root {
+            margin-bottom: 10px;
+        }
+
+        .MuiButton-root {
+            font-size: 0.875rem;
+        }
+    }
+}

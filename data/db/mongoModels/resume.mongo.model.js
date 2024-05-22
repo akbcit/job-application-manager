@@ -1,6 +1,31 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const PersonalInfoSchema = new Schema({
+  candidateName: {
+    type: String,
+    required: true,
+  },
+  candidateEmail: {
+    type: String,
+    required: true,
+  },
+  candidateLinkedin: {
+    type: String,
+  },
+  candidatePhone:{
+    type:String,
+  },
+  candidateLocation:{
+    type:String,
+    required: true,
+  },
+  candidateCountry:{
+    type:String,
+    required: true,
+  }
+});
+
 const JobExperienceSchema = new Schema({
   company: {
     type: String,
@@ -78,10 +103,7 @@ const ResumeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  candidateEmail: {
-    type: String,
-    required: true,
-  },
+  personalInfo:PersonalInfoSchema,
   candidateSkills: [
     {
       type: String,

@@ -23,13 +23,22 @@ const CandidateSchema = new Schema({
       ref: "Resume",
     },
   ],
-  candidateCity: {
+  candidateLocation: {
     type: String,
   },
   candidateCountry: {
     type: String,
   },
   candidatePhone: {
+    type: String,
+  },
+  candidateLinkedInUrl: {
+    type: String,
+  },
+  candidateGitHubUrl: {
+    type: String,
+  },
+  candidatePersonalUrl: {
     type: String,
   },
   jobSearchIds: [

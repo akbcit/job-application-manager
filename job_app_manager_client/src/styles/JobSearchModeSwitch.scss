@@ -1,0 +1,18 @@
+.custom-switch {
+    .MuiSwitch-switchBase.Mui-checked {
+        color: #15d196;  
+
+        & + .MuiSwitch-track {
+            background-color: #15d196;  
+        }
+    }
+    .MuiSwitch-track {
+        background-color: #bdbdbd; 
+    }
+}
+
+.custom-label {
+    .MuiFormControlLabel-label {
+        color: #15d196;  
+    }
+}
