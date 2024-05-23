@@ -10,4 +10,9 @@
     &:hover {
         background-color: #15d1966b !important;
     }
+
+    &.disabled {
+        color: #b2b2b2 !important;
+        border: 1px solid #b2b2b2 !important;
+    }
 }

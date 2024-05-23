@@ -15,6 +15,8 @@ import { OvalButtonGreen } from "./OvalButtonGreen";
 import { JobSearchModeSwitch } from "./JobSearchModeSwitch";
 import { GenericBackDrop } from "./GenericBackDrop";
 import { ResumeEditor } from "./ResumeEditor";
+import { getResumeVersions } from "../network/serverAPICalls/resume.getResumeVersions";
+import { useResumeEditor } from "../localStates/resumeEditorState";
 
 export const ProfilePanel = () => {
 
@@ -23,12 +25,27 @@ export const ProfilePanel = () => {
     const [candidateDetails, setCandidateDetails] = useState<CandidateVM | null>(null);
     const [jobSearchMode, setJobSearchMode] = useState<boolean>(false);
     const [resumeEditorOpen, setResumeEditorOpen] = useState<boolean>(false);
+    const {setResumeVersionNames} = useResumeEditor();
 
     const closeResumeEditor = () => {
         if (resumeEditorOpen) {
             setResumeEditorOpen(false);
         }
     }
+
+    const resumeVersionsQuery = useQuery(
+        {
+            queryKey: ['getResumeVersions'],
+            queryFn: () => getResumeVersions(user?.email as string),
+        }
+    )
+
+    useEffect(()=>{
+        if(resumeVersionsQuery.data){
+            setResumeVersionNames(resumeVersionsQuery.data);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[resumeVersionsQuery.data])
 
     const profileQuery = useQuery({
         queryKey: ['getProfile'],
@@ -51,7 +68,7 @@ export const ProfilePanel = () => {
     }
 
     const resumeBtnClick = () => {
-        if(!resumeEditorOpen){
+        if (!resumeEditorOpen) {
             setResumeEditorOpen(true);
         }
     };
@@ -80,7 +97,7 @@ export const ProfilePanel = () => {
                         <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         <ProfileCompletion value={profileCompletion} />
                     </Stack>
-                    <OvalButtonGreen onButtonClick={resumeBtnClick} content="Add Resume" />
+                    <OvalButtonGreen isDisabled={!resumeVersionsQuery.data} onButtonClick={resumeBtnClick} content="Resume Manager" extraClass={!resumeVersionsQuery.data?"disabled":""}/>
                     <Typography variant="body1" color="#15d196" className="score-sibling">
                         Location
                     </Typography>

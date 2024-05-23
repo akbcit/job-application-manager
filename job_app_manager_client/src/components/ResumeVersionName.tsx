@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, FormControl, TextField } from '@mui/material';
+import { useResumeEditor } from '../localStates/resumeEditorState';
 
 interface ResumeVersionNameProps {
     defaultValue?: string;
@@ -8,6 +9,10 @@ interface ResumeVersionNameProps {
 
 export const ResumeVersionName: React.FC<ResumeVersionNameProps> = ({ defaultValue = '', onVersionNameChange }) => {
     const [versionName, setVersionName] = useState<string>(defaultValue);
+
+    const {resumeVersionNames} = useResumeEditor();
+
+    console.log(resumeVersionNames)
 
     useEffect(() => {
         if (defaultValue) {
@@ -22,10 +27,10 @@ export const ResumeVersionName: React.FC<ResumeVersionNameProps> = ({ defaultVal
     };
 
     return (
-        <Box className="resume-version-name">
-            <FormControl>
+        <Box className="form-section">
+            <FormControl className='form-control'>
                 <TextField
-                    id="resumeVersionName"
+                    className='text-field'
                     label="Resume Version Name"
                     value={versionName}
                     onChange={handleInputChange}

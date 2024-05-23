@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose from "mongoose";
 
-const PersonalInfoSchema = new Schema({
+const PersonalInfoSchema = new mongoose.Schema({
   candidateName: {
     type: String,
     required: true,
@@ -13,20 +12,20 @@ const PersonalInfoSchema = new Schema({
   candidateLinkedin: {
     type: String,
   },
-  candidatePhone:{
-    type:String,
+  candidatePhone: {
+    type: String,
   },
-  candidateLocation:{
-    type:String,
+  candidateLocation: {
+    type: String,
     required: true,
   },
-  candidateCountry:{
-    type:String,
+  candidateCountry: {
+    type: String,
     required: true,
-  }
+  },
 });
 
-const JobExperienceSchema = new Schema({
+const JobExperienceSchema = new mongoose.Schema({
   company: {
     type: String,
     required: true,
@@ -51,7 +50,7 @@ const JobExperienceSchema = new Schema({
   ],
 });
 
-const ProjectSchema = new Schema({
+const ProjectSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -70,7 +69,7 @@ const ProjectSchema = new Schema({
   ],
 });
 
-const EducationSchema = new Schema({
+const EducationSchema = new mongoose.Schema({
   institution: {
     type: String,
     required: true,
@@ -98,12 +97,15 @@ const EducationSchema = new Schema({
   ],
 });
 
-const ResumeSchema = new Schema({
+const ResumeSchema = new mongoose.Schema({
   candidateId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  personalInfo:PersonalInfoSchema,
+  resumeVersionName: {
+    type: String,
+  },
+  personalInfo: PersonalInfoSchema,
   candidateSkills: [
     {
       type: String,
@@ -116,9 +118,6 @@ const ResumeSchema = new Schema({
   lastUpdated: {
     type: Date,
   },
-  versionName: {
-    type: String,
-  },
   jobExperiences: [JobExperienceSchema],
   projects: [ProjectSchema],
   education: [EducationSchema],
@@ -129,9 +128,13 @@ const ResumeSchema = new Schema({
   ],
 });
 
-const JobExperience = mongoose.model("JobExperience", JobExperienceSchema);
-const Project = mongoose.model("Project", ProjectSchema);
-const Education = mongoose.model("Education", EducationSchema);
-const Resume = mongoose.model("Resume", ResumeSchema);
+// Add unique compound index
+ResumeSchema.index({ candidateId: 1, resumeVersionName: 1 }, { unique: true });
 
-module.exports = { JobExperience, Project, Education, Resume };
+export const JobExperience = mongoose.model(
+  "JobExperience",
+  JobExperienceSchema
+);
+export const Project = mongoose.model("Project", ProjectSchema);
+export const Education = mongoose.model("Education", EducationSchema);
+export const Resume = mongoose.model("Resume", ResumeSchema);

@@ -13,12 +13,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ defaultValue
     const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
         candidateName: '',
         candidateEmail: '',
-        candidateLinkedInUrl: '',
         candidatePhone: '',
         candidateLocation: '',
         candidateCountry: '',
-        candidateGitHubUrl: '',
-        candidatePersonalUrl: '',
     });
 
     useEffect(() => {
@@ -56,72 +53,50 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ defaultValue
                     required
                 />
             </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidateEmail"
-                    label="Email"
-                    value={personalInfo.candidateEmail}
-                    onChange={handleInputChange('candidateEmail')}
-                    helperText="Enter your email address"
-                    required
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidatePhone"
-                    label="Phone"
-                    value={personalInfo.candidatePhone || ''}
-                    onChange={handleInputChange('candidatePhone')}
-                    helperText="Enter your phone number"
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidateLocation"
-                    label="Location"
-                    value={personalInfo.candidateLocation}
-                    onChange={handleInputChange('candidateLocation')}
-                    helperText="Enter your current location"
-                    required
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidateCountry"
-                    label="Country"
-                    value={personalInfo.candidateCountry}
-                    onChange={handleInputChange('candidateCountry')}
-                    helperText="Enter your country"
-                    required
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidateLinkedin"
-                    label="LinkedIn"
-                    value={personalInfo.candidateLinkedInUrl || ''}
-                    onChange={handleInputChange('candidateLinkedInUrl')}
-                    helperText="Enter your LinkedIn profile URL"
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidatePersonalUrl"
-                    label="Website"
-                    value={personalInfo.candidatePersonalUrl || ''}
-                    onChange={handleInputChange('candidatePersonalUrl')}
-                    helperText="Enter your Portfolio Site URL"
-                />
-            </FormControl>
-            <FormControl>
-                <TextField
-                    id="candidateGitHub"
-                    label="GitHub"
-                    value={personalInfo.candidateGitHubUrl || ''}
-                    onChange={handleInputChange('candidateGitHubUrl')}
-                    helperText="Enter your GitHub profile URL"
-                />
-            </FormControl>
+            <Box className="personal-info-section">
+                <FormControl>
+                    <TextField
+                        id="candidateEmail"
+                        label="Email"
+                        value={personalInfo.candidateEmail}
+                        onChange={handleInputChange('candidateEmail')}
+                        helperText="Enter your email address"
+                        required
+                    />
+                </FormControl>
+                <FormControl>
+                    <TextField
+                        id="candidatePhone"
+                        label="Phone"
+                        value={personalInfo.candidatePhone || ''}
+                        onChange={handleInputChange('candidatePhone')}
+                        helperText="Enter your phone number"
+                    />
+                </FormControl>
+            </Box>
+            <Box className="personal-info-section">
+
+                <FormControl>
+                    <TextField
+                        id="candidateLocation"
+                        label="Location"
+                        value={personalInfo.candidateLocation}
+                        onChange={handleInputChange('candidateLocation')}
+                        helperText="Enter your current location"
+                        required
+                    />
+                </FormControl>
+                <FormControl>
+                    <TextField
+                        id="candidateCountry"
+                        label="Country"
+                        value={personalInfo.candidateCountry}
+                        onChange={handleInputChange('candidateCountry')}
+                        helperText="Enter your country"
+                        required
+                    />
+                </FormControl>
+            </Box>
         </Box>
     );
 };

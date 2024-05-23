@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
-const { Schema } = mongoose;
-
-const CandidateSchema = new Schema({
+const CandidateSchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "Users",
@@ -49,6 +48,4 @@ const CandidateSchema = new Schema({
   ],
 });
 
-const Candidate = mongoose.model("Candidate", CandidateSchema);
-
-export default Candidate;
+export const Candidate = mongoose.model("Candidate", CandidateSchema);

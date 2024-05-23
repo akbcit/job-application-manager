@@ -8,15 +8,11 @@
     max-width: 1200px;
     margin: 0 auto;
     border-radius: 10px;
-    box-sizing: border-box;
-    height: 95vh;
+    height: 70vh;
 
 
     .MuiStepper-root {
-        position: sticky;
-        top: 0;
         background: white;
-        z-index: 10;
     }
 
     .content-container {
@@ -25,10 +21,28 @@
         padding: 20px 0;
         display: flex;
         flex-direction: column;
-        max-height: fit-content;
-        justify-content: center; /* Center content vertically within the container */
-        align-items: center; /* Center content horizontally */
-        min-height: calc(100vh - 130px); /* Ensure it takes at least the available space */
+        justify-content: space-evenly;
+
+        .form-section {
+            padding: 16px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .form-control{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                .text-field{
+                    margin: 0;
+                }
+            }
+        }
     }
 
     .form-section {
