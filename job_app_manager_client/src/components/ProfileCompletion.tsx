@@ -10,7 +10,7 @@ function ProfileCompletion(props: CircularProgressProps & { value: number }) {
       <CircularProgress variant="determinate" {...props} value={normalizedValue} />
       <Box
         sx={{
-          top: 0,
+          top: 3,
           left: 0,
           bottom: 0,
           right: 0,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Backdrop, Box } from '@mui/material';
+import "../styles/GenericBackDrop.scss"
 
 interface GenericBackDropProps {
     open: boolean;
@@ -13,7 +14,7 @@ export const GenericBackDrop: React.FC<GenericBackDropProps> = ({ open, handleCl
         event.stopPropagation();
     };
 
-    
+
     return (
         <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -6,13 +6,13 @@ import logger from "morgan";
 import mongoose from "mongoose";
 import session from "express-session";
 import connectMongo from "connect-mongo";
-
 import { jobRouter } from "./serverRoutes/jobRouter.routes.js";
 import { resumeRouter } from "./serverRoutes/resume.routes.js";
 import { jobAlertsRouter } from "./serverRoutes/jobAlerts.routes.js";
 import { authRouter } from "./serverRoutes/auth.routes.js";
 import { profileRouter } from "./serverRoutes/profile.routes.js";
 import cookieParser from "cookie-parser";  
+import {jobSearchRouter} from "./serverRoutes/jobSearch.routes.js"
 
 
 dotenv.config();
@@ -67,6 +67,7 @@ app.use("/api/resume", resumeRouter);
 app.use("/api/job-alerts", jobAlertsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
+app.use("/api/jobSearch", jobSearchRouter);
 
 const PORT = process.env.PORT || 3000;
 
