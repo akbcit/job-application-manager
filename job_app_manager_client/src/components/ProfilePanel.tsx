@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Paper, Stack, Tooltip, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import { useAuth } from "../globalStates/authState";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ import { GenericBackDrop } from "./GenericBackDrop";
 import { ResumeEditor } from "./ResumeEditor";
 import { getResumeVersions } from "../network/serverAPICalls/resume.getResumeVersions";
 import { useResumeEditor } from "../localStates/resumeEditorState";
+import { JobQueriesEditor } from "./JobQueriesEditor";
 
 export const ProfilePanel = () => {
 
@@ -26,12 +27,20 @@ export const ProfilePanel = () => {
     const [jobSearchMode, setJobSearchMode] = useState<boolean>(false);
     const [resumeEditorOpen, setResumeEditorOpen] = useState<boolean>(false);
     const {setResumeVersionNames} = useResumeEditor();
+    const [searchQueryEditorOpen,setSearchQueryEditorOpen] = useState<boolean>(false);
 
     const closeResumeEditor = () => {
         if (resumeEditorOpen) {
             setResumeEditorOpen(false);
         }
     }
+
+    const closeSearchQueryEditor = () => {
+        if (searchQueryEditorOpen) {
+            setSearchQueryEditorOpen(false);
+        }
+    }
+
 
     const resumeVersionsQuery = useQuery(
         {
@@ -77,6 +86,10 @@ export const ProfilePanel = () => {
         setJobSearchMode(newToggledState);
     }
 
+    const openJobQueryManager  = ()=>{
+        setSearchQueryEditorOpen(true);
+    }
+
     return (
         <>
             <Paper elevation={3} id="profile-panel">
@@ -108,7 +121,7 @@ export const ProfilePanel = () => {
                 <div id="profile-section-3" className="profile-section">
                     <JobSearchModeSwitch onToggle={onJobSearchModeToggle} defaultValue={jobSearchMode} switchLabel={`${!jobSearchMode ? "Start Job Search" : "End Job Search"}`} />
                     <Box id="job-applied-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
-                        <Typography variant="body1">
+                        <Typography variant="body1" className="profile-job-search-texts">
                             Jobs Applied
                         </Typography>
                         <Tooltip title="Start Job Search To Activate">
@@ -131,10 +144,14 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
+                    <OvalButtonGreen isDisabled={!jobSearchMode} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!jobSearchMode?"disabled":""}/>
                 </div>
             </Paper>
             <GenericBackDrop open={resumeEditorOpen} handleClose={closeResumeEditor}>
                 <ResumeEditor />
+            </GenericBackDrop>
+            <GenericBackDrop open={searchQueryEditorOpen} handleClose={closeSearchQueryEditor}>
+                <JobQueriesEditor onQueriesSave={()=>{}}/>
             </GenericBackDrop>
         </>
     );
