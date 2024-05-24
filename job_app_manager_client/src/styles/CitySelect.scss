@@ -1,0 +1,22 @@
+#city-select-master-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+
+    .city-select-label {
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .react-select__control {
+        flex: 1;
+    }
+
+
+    .city-country-name {
+        margin-left: 1rem;
+        flex-shrink: 0;
+        font-size: 1rem;
+    }
+}

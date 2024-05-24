@@ -17,7 +17,6 @@ export const useGoogleAuth = (): AuthService => {
                 handleLogin(loginResponse, "google");
             } catch (error) {
                 console.error('Failed to exchange authorization code for tokens', error);
-                handleLogout();
             }
         },
         onError: () => {

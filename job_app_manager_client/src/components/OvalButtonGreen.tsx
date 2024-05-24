@@ -6,9 +6,10 @@ interface OvalButtonGreenProps {
     content: string;
     extraClass?:string;
     isDisabled?:boolean;
+    defaultValue?:boolean;
 }
 
-export const OvalButtonGreen: React.FC<OvalButtonGreenProps> = ({ onButtonClick, content,extraClass,isDisabled  }) => (
+export const OvalButtonGreen: React.FC<OvalButtonGreenProps> = ({ onButtonClick, content,extraClass,isDisabled,defaultValue  }) => (
     <Button
         onClick={onButtonClick}
         className={`oval-btn-green ${extraClass?extraClass:""}`}
