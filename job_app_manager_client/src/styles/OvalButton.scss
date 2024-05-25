@@ -1,0 +1,18 @@
+.oval-btn {
+    border-radius: 20px !important;
+    border: 1px solid var(--primary-color, #15d196) !important;
+    background-color: var(--background-color, transparent) !important;
+    color: var(--primary-color, #15d196) !important;
+    text-transform: none !important;
+    padding: 4px 8px !important;
+    transition: background-color 0.3s ease, color 0.3s ease !important;
+
+    &:hover {
+        background-color: var(--hover-background-color, #15d1966b) !important;
+    }
+
+    &.disabled {
+        color: #b2b2b2 !important;
+        border: 1px solid #b2b2b2 !important;
+    }
+}

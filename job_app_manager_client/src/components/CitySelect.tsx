@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import AsyncSelect from 'react-select/async';
 import axiosInstance from '../network/axiosInstance';
 import { City } from '../clientModels/city.model';
 import "../styles/CitySelect.scss";
-
-interface CitySelectProps {
-  onCitySelect: (city: City | null) => void;
-}
+import { useJobQueryEditorState } from '../localStates/jobQueryEditorState';
+import { SingleValue } from 'react-select';
 
 const fetchCities = async (inputValue: string) => {
   if (!inputValue) return [];
@@ -19,12 +16,14 @@ const fetchCities = async (inputValue: string) => {
   }));
 };
 
-export const CitySelect: React.FC<CitySelectProps> = ({ onCitySelect }) => {
-  const [selectedCity, setSelectedCity] = useState<{ label: string, value: City } | null>(null);
+export const CitySelect: React.FC = () => {
+  const { jobQueryEditorState, setJobQueryEditorState } = useJobQueryEditorState();
 
-  const handleChange = (selectedOption: { label: string, value: City } | null) => {
-    setSelectedCity(selectedOption);
-    onCitySelect(selectedOption ? selectedOption.value : null);
+  const handleChange = (newCity: SingleValue<{ label: string; value: City }>) => {
+    setJobQueryEditorState((prevState) => ({
+      ...prevState,
+      selectedCity: newCity ? newCity.value : null,
+    }));
   };
 
   return (
@@ -34,19 +33,14 @@ export const CitySelect: React.FC<CitySelectProps> = ({ onCitySelect }) => {
         defaultOptions
         loadOptions={fetchCities}
         onChange={handleChange}
-        value={selectedCity}
+        value={jobQueryEditorState.selectedCity ? { label: jobQueryEditorState.selectedCity.city_name, value: jobQueryEditorState.selectedCity } : null}
         inputId="city-select"
+        placeholder="Start typing to find a city..."
         isClearable
-        styles={{
-          control: (base) => ({
-            ...base,
-            width: '10rem', // Fixed width for the select input
-          }),
-        }}
       />
-      {selectedCity && selectedCity.value.city_country_name && (
+      {jobQueryEditorState.selectedCity && jobQueryEditorState.selectedCity.city_country_name && (
         <Typography variant="h6" className="city-country-name">
-          {selectedCity.value.city_country_name}
+          {jobQueryEditorState.selectedCity.city_country_name}
         </Typography>
       )}
     </div>

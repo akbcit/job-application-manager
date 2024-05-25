@@ -46,6 +46,10 @@ const CandidateSchema = new mongoose.Schema({
       ref: "JobSearch",
     },
   ],
+  jobSearch: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const Candidate = mongoose.model("Candidate", CandidateSchema);

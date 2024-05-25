@@ -99,6 +99,8 @@ export const googleSignIn = async (req, res) => {
       accessToken: access_token,
     };
 
+    console.log(loginResponse)
+
     return res.status(200).send(loginResponse);
   } catch (err) {
     console.log(err);

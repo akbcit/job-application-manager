@@ -2,33 +2,6 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { PersonalInfo } from '../clientModels/personalInfo.model';
 import { Socials } from '../clientModels/socials.model';
 
-
-export interface ResumeEditorState {
-    activeStep: number;
-    completed: { [k: number]: boolean };
-    personalInfo: PersonalInfo;
-    socialsInfo: Socials;
-    resumeVersionNames: string[];
-    currentResumeName: string;
-    isNextActive: boolean;
-    isBackActive: boolean;
-    isSaveActive: boolean;
-    setActiveStep: (step: number) => void;
-    setCompleted: (completed: { [k: number]: boolean }) => void;
-    setPersonalInfo: (info: PersonalInfo) => void;
-    setSocialsInfo: (info: Socials) => void;
-    setResumeVersionNames: (names: string[]) => void;
-    setCurrentResumeName: (name: string) => void;
-    setIsNextActive: (isActive: boolean) => void;
-    setIsBackActive: (isActive: boolean) => void;
-    setIsSaveActive: (isActive: boolean) => void;
-    handleNext: () => void;
-    handleBack: () => void;
-    handleComplete: () => void;
-    handleReset: () => void;
-    handleSaveAndExit: () => void;
-}
-
 const initialPersonalInfo: PersonalInfo = {
     candidateName: '',
     candidateEmail: '',
@@ -43,7 +16,35 @@ const initialSocialsInfo: Socials = {
     candidatePersonalUrl: '',
 };
 
-const ResumeEditorContext = createContext<ResumeEditorState | undefined>(undefined);
+interface ResumeEditorContextType {
+    activeStep: number;
+    setActiveStep: (step: number) => void;
+    completed: { [k: number]: boolean };
+    setCompleted: (completed: { [k: number]: boolean }) => void;
+    personalInfo: PersonalInfo;
+    setPersonalInfo: (info: PersonalInfo) => void;
+    socialsInfo: Socials;
+    setSocialsInfo: (info: Socials) => void;
+    resumeVersionNames: string[];
+    setResumeVersionNames: (names: string[]) => void;
+    currentResumeName: string;
+    setCurrentResumeName: (name: string) => void;
+    isNextActive: boolean;
+    setIsNextActive: (isActive: boolean) => void;
+    isBackActive: boolean;
+    setIsBackActive: (isActive: boolean) => void;
+    isSaveActive: boolean;
+    setIsSaveActive: (isActive: boolean) => void;
+    resumeEditorOpen: boolean;
+    setResumeEditorOpen: (open: boolean) => void;
+    handleNext: () => void;
+    handleBack: () => void;
+    handleComplete: () => void;
+    handleReset: () => void;
+    handleSaveAndExit: () => void;
+}
+
+const ResumeEditorContext = createContext<ResumeEditorContextType | undefined>(undefined);
 
 export const ResumeEditorProvider = ({ children }: { children: ReactNode }) => {
     const [activeStep, setActiveStep] = useState(0);
@@ -55,6 +56,7 @@ export const ResumeEditorProvider = ({ children }: { children: ReactNode }) => {
     const [isNextActive, setIsNextActive] = useState(true);
     const [isBackActive, setIsBackActive] = useState(false);
     const [isSaveActive, setIsSaveActive] = useState(true);
+    const [resumeEditorOpen, setResumeEditorOpen] = useState(false);
 
     const steps = ['Resume Version Name', 'Personal Information', 'Job Experience', 'Education', 'Projects', 'Socials'];
 
@@ -92,6 +94,7 @@ export const ResumeEditorProvider = ({ children }: { children: ReactNode }) => {
         setSocialsInfo(initialSocialsInfo);
         setResumeVersionNames([]);
         setCurrentResumeName('');
+        setResumeEditorOpen(false);
     };
 
     const handleSaveAndExit = () => {
@@ -100,36 +103,18 @@ export const ResumeEditorProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <ResumeEditorContext.Provider value={{
-            activeStep,
-            completed,
-            personalInfo,
-            socialsInfo,
-            resumeVersionNames,
-            currentResumeName,
-            isNextActive,
-            isBackActive,
-            isSaveActive,
-            setActiveStep,
-            setCompleted,
-            setPersonalInfo,
-            setSocialsInfo,
-            setResumeVersionNames,
-            setCurrentResumeName,
-            setIsNextActive,
-            setIsBackActive,
-            setIsSaveActive,
-            handleNext,
-            handleBack,
-            handleComplete,
-            handleReset,
-            handleSaveAndExit,
+            activeStep, setActiveStep, completed, setCompleted, personalInfo, setPersonalInfo,
+            socialsInfo, setSocialsInfo, resumeVersionNames, setResumeVersionNames,
+            currentResumeName, setCurrentResumeName, isNextActive, setIsNextActive,
+            isBackActive, setIsBackActive, isSaveActive, setIsSaveActive,
+            resumeEditorOpen, setResumeEditorOpen,
+            handleNext, handleBack, handleComplete, handleReset, handleSaveAndExit
         }}>
             {children}
         </ResumeEditorContext.Provider>
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useResumeEditor = () => {
     const context = useContext(ResumeEditorContext);
     if (!context) {
