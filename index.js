@@ -10,9 +10,10 @@ import { jobRouter } from "./serverRoutes/jobRouter.routes.js";
 import { resumeRouter } from "./serverRoutes/resume.routes.js";
 import { jobAlertsRouter } from "./serverRoutes/jobAlerts.routes.js";
 import { authRouter } from "./serverRoutes/auth.routes.js";
-import { profileRouter } from "./serverRoutes/profile.routes.js";
+import { candidateRouter } from "./serverRoutes/candidate.routes.js";
 import cookieParser from "cookie-parser";  
-import {jobSearchRouter} from "./serverRoutes/jobSearch.routes.js"
+import {jobSearchRouter} from "./serverRoutes/jobSearch.routes.js";
+import {miscRouter} from "./serverRoutes/misc.routes.js";
 
 
 dotenv.config();
@@ -66,8 +67,9 @@ app.use("/api/job", jobRouter);
 app.use("/api/resume", resumeRouter);
 app.use("/api/job-alerts", jobAlertsRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/profile", profileRouter);
+app.use("/api/candidate", candidateRouter);
 app.use("/api/jobSearch", jobSearchRouter);
+app.use("/api/misc",miscRouter);
 
 const PORT = process.env.PORT || 3000;
 

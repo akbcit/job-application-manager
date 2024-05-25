@@ -1,5 +1,5 @@
 // ResumeEditor.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -15,6 +15,7 @@ import { SocialsForm } from './SocialsForm';
 const steps = ['Resume Version Name', 'Personal Information', 'Job Experience', 'Education', 'Projects', 'Socials'];
 
 export const ResumeEditor = () => {
+
   const {
     activeStep,
     completed,
@@ -49,14 +50,13 @@ export const ResumeEditor = () => {
       case 4:
         return <div>Projects Form Component</div>;
       case 5:
-        return <SocialsForm defaultValue={socialsInfo} onSocialsChange={setSocialsInfo}/>;
+        return <SocialsForm defaultValue={socialsInfo} onSocialsChange={setSocialsInfo} />;
       default:
         return null;
     }
   };
 
   const completedSteps = () => Object.keys(completed).length;
-
 
   return (
     <Box className="resume-editor">

@@ -2,7 +2,7 @@ import { Box, Button, Paper, Stack, Tooltip, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import { useAuth } from "../globalStates/authState";
 import { useQuery } from "@tanstack/react-query";
-import { getProfile } from "../network/serverAPICalls/profile.getProfile";
+import { getProfile } from "../network/serverAPICalls/candidate.getProfile";
 import { ErrorAlert } from "./ErrorAlert";
 import "../styles/ProfilePanel.scss";
 import placeHolderProfile from "../assets/placeholderProfile.png";
@@ -11,23 +11,23 @@ import { CandidateVM } from "../../../data/db/tsModels/CandidateVM";
 import { calculateProfileCompletion } from "../utils/calculateProfileCompletion";
 import ProfileCompletion from "./ProfileCompletion";
 import InfoIcon from '@mui/icons-material/Info';
-import { OvalButtonGreen } from "./OvalButtonGreen";
+import { OvalButton } from "./OvalButton";
 import { JobSearchModeSwitch } from "./JobSearchModeSwitch";
 import { GenericBackDrop } from "./GenericBackDrop";
 import { ResumeEditor } from "./ResumeEditor";
 import { getResumeVersions } from "../network/serverAPICalls/resume.getResumeVersions";
 import { useResumeEditor } from "../localStates/resumeEditorState";
 import { JobQueriesEditor } from "./JobQueriesEditor";
+import { useJobQueryEditorState } from "../localStates/jobQueryEditorState";
+import { JobQueryEditorState } from "../localStates/jobQueryEditorState";
 
 export const ProfilePanel = () => {
-
     const { user } = useAuth();
     const [profileCompletion, setProfileCompletion] = useState<number>(0);
     const [candidateDetails, setCandidateDetails] = useState<CandidateVM | null>(null);
     const [jobSearchMode, setJobSearchMode] = useState<boolean>(false);
-    const [resumeEditorOpen, setResumeEditorOpen] = useState<boolean>(false);
-    const {setResumeVersionNames} = useResumeEditor();
-    const [searchQueryEditorOpen,setSearchQueryEditorOpen] = useState<boolean>(false);
+    const { resumeEditorOpen, setResumeEditorOpen, setResumeVersionNames } = useResumeEditor();
+    const { jobQueryEditorState, setJobQueryEditorState } = useJobQueryEditorState();
 
     const closeResumeEditor = () => {
         if (resumeEditorOpen) {
@@ -35,32 +35,31 @@ export const ProfilePanel = () => {
         }
     }
 
+    const openJobQueryManager = () => {
+        setJobQueryEditorState((prevState: JobQueryEditorState) => ({ ...prevState, isJobQueryEditorOpen: true }));
+    }
+
     const closeSearchQueryEditor = () => {
-        if (searchQueryEditorOpen) {
-            setSearchQueryEditorOpen(false);
+        if (jobQueryEditorState.isJobQueryEditorOpen) {
+            setJobQueryEditorState((prevState: JobQueryEditorState) => ({ ...prevState, isJobQueryEditorOpen: false }));
         }
     }
 
+    const resumeVersionsQuery = useQuery({
+        queryKey: ['getResumeVersions'],
+        queryFn: () => getResumeVersions(user?.email as string),
+    });
 
-    const resumeVersionsQuery = useQuery(
-        {
-            queryKey: ['getResumeVersions'],
-            queryFn: () => getResumeVersions(user?.email as string),
-        }
-    )
-
-    useEffect(()=>{
-        if(resumeVersionsQuery.data){
+    useEffect(() => {
+        if (resumeVersionsQuery.data) {
             setResumeVersionNames(resumeVersionsQuery.data);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[resumeVersionsQuery.data])
+    }, [resumeVersionsQuery.data, setResumeVersionNames]);
 
     const profileQuery = useQuery({
         queryKey: ['getProfile'],
         queryFn: () => getProfile(user?.email as string),
     });
-
 
     useEffect(() => {
         if (profileQuery.data && profileQuery.data.candidateDetails) {
@@ -71,9 +70,7 @@ export const ProfilePanel = () => {
     }, [profileQuery.data]);
 
     if (profileQuery.error) {
-        return (
-            <ErrorAlert message="Error fetching user details" />
-        );
+        return <ErrorAlert message="Error fetching user details" />;
     }
 
     const resumeBtnClick = () => {
@@ -84,10 +81,6 @@ export const ProfilePanel = () => {
 
     const onJobSearchModeToggle = (newToggledState: boolean) => {
         setJobSearchMode(newToggledState);
-    }
-
-    const openJobQueryManager  = ()=>{
-        setSearchQueryEditorOpen(true);
     }
 
     return (
@@ -110,7 +103,7 @@ export const ProfilePanel = () => {
                         <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         <ProfileCompletion value={profileCompletion} />
                     </Stack>
-                    <OvalButtonGreen isDisabled={!resumeVersionsQuery.data} onButtonClick={resumeBtnClick} content="Resume Manager" extraClass={!resumeVersionsQuery.data?"disabled":""}/>
+                    <OvalButton isDisabled={!resumeVersionsQuery.data} onButtonClick={resumeBtnClick} content="Resume Manager" extraClass={!resumeVersionsQuery.data ? "disabled" : ""} />
                     <Typography variant="body1" color="#15d196" className="score-sibling">
                         Location
                     </Typography>
@@ -144,14 +137,15 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
-                    <OvalButtonGreen isDisabled={!jobSearchMode} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!jobSearchMode?"disabled":""}/>
+                    <OvalButton isDisabled={!jobSearchMode} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!jobSearchMode ? "disabled" : ""} />
                 </div>
             </Paper>
             <GenericBackDrop open={resumeEditorOpen} handleClose={closeResumeEditor}>
                 <ResumeEditor />
             </GenericBackDrop>
-            <GenericBackDrop open={searchQueryEditorOpen} handleClose={closeSearchQueryEditor}>
-                <JobQueriesEditor onQueriesSave={()=>{}}/>
+
+            <GenericBackDrop open={jobQueryEditorState.isJobQueryEditorOpen} handleClose={closeSearchQueryEditor}>
+                <JobQueriesEditor onQueriesSave={() => { }} />
             </GenericBackDrop>
         </>
     );

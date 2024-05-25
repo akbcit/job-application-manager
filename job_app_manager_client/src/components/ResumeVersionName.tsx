@@ -10,9 +10,7 @@ interface ResumeVersionNameProps {
 export const ResumeVersionName: React.FC<ResumeVersionNameProps> = ({ defaultValue = '', onVersionNameChange }) => {
     const [versionName, setVersionName] = useState<string>(defaultValue);
 
-    const {resumeVersionNames} = useResumeEditor();
-
-    console.log(resumeVersionNames)
+    const { resumeVersionNames } = useResumeEditor();
 
     useEffect(() => {
         if (defaultValue) {
