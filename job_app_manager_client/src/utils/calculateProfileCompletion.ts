@@ -1,6 +1,6 @@
-import { CandidateVM } from "../../../data/db/tsModels/CandidateVM";
+import { CandidateDetails } from "../clientModels/candidateDetails.model";
 
-export const calculateProfileCompletion = (candidateDetails: CandidateVM | null) => {
+export const calculateProfileCompletion = (candidateDetails: CandidateDetails | null) => {
     if (candidateDetails === null) {
         return 0;
     }

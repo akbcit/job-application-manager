@@ -2,6 +2,7 @@ import { Paper } from "@mui/material";
 import { useAuth } from "../globalStates/authState.tsx";
 import { ErrorAlert } from "./ErrorAlert.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
+import { useLocation } from "react-router-dom";
 
 interface CheckAuthProps {
   children: React.ReactNode;
@@ -9,7 +10,9 @@ interface CheckAuthProps {
 
 export const CheckAuth: React.FC<CheckAuthProps> = ({ children }) => {
   const { isAuthenticated, user, authLoading } = useAuth();
+  const location = useLocation();
 
+  console.log(location.pathname);
 
   if (authLoading) {
     return (

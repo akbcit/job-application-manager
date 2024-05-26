@@ -1,13 +1,11 @@
-import { Box, Button, Paper, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, Paper, Stack, Tooltip, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import { useAuth } from "../globalStates/authState";
 import { useQuery } from "@tanstack/react-query";
-import { getProfile } from "../network/serverAPICalls/candidate.getProfile";
 import { ErrorAlert } from "./ErrorAlert";
 import "../styles/ProfilePanel.scss";
 import placeHolderProfile from "../assets/placeholderProfile.png";
 import { useEffect, useState } from "react";
-import { CandidateVM } from "../../../data/db/tsModels/CandidateVM";
 import { calculateProfileCompletion } from "../utils/calculateProfileCompletion";
 import ProfileCompletion from "./ProfileCompletion";
 import InfoIcon from '@mui/icons-material/Info';
@@ -20,14 +18,21 @@ import { useResumeEditor } from "../localStates/resumeEditorState";
 import { JobQueriesEditor } from "./JobQueriesEditor";
 import { useJobQueryEditorState } from "../localStates/jobQueryEditorState";
 import { JobQueryEditorState } from "../localStates/jobQueryEditorState";
+import { useCandidateDetails } from "../localStates/candidateDetailsState";
 
 export const ProfilePanel = () => {
     const { user } = useAuth();
     const [profileCompletion, setProfileCompletion] = useState<number>(0);
-    const [candidateDetails, setCandidateDetails] = useState<CandidateVM | null>(null);
-    const [jobSearchMode, setJobSearchMode] = useState<boolean>(false);
     const { resumeEditorOpen, setResumeEditorOpen, setResumeVersionNames } = useResumeEditor();
     const { jobQueryEditorState, setJobQueryEditorState } = useJobQueryEditorState();
+
+    const { candidateDetails, profileQuery } = useCandidateDetails();
+
+    useEffect(() => {
+        setProfileCompletion(calculateProfileCompletion(candidateDetails));
+        console.log(candidateDetails)
+    }, [candidateDetails]);
+
 
     const closeResumeEditor = () => {
         if (resumeEditorOpen) {
@@ -56,18 +61,6 @@ export const ProfilePanel = () => {
         }
     }, [resumeVersionsQuery.data, setResumeVersionNames]);
 
-    const profileQuery = useQuery({
-        queryKey: ['getProfile'],
-        queryFn: () => getProfile(user?.email as string),
-    });
-
-    useEffect(() => {
-        if (profileQuery.data && profileQuery.data.candidateDetails) {
-            setCandidateDetails(profileQuery.data.candidateDetails);
-            const completion = calculateProfileCompletion(profileQuery.data.candidateDetails);
-            setProfileCompletion(completion);
-        }
-    }, [profileQuery.data]);
 
     if (profileQuery.error) {
         return <ErrorAlert message="Error fetching user details" />;
@@ -79,9 +72,6 @@ export const ProfilePanel = () => {
         }
     };
 
-    const onJobSearchModeToggle = (newToggledState: boolean) => {
-        setJobSearchMode(newToggledState);
-    }
 
     return (
         <>
@@ -112,8 +102,8 @@ export const ProfilePanel = () => {
                     </Typography>
                 </div>
                 <div id="profile-section-3" className="profile-section">
-                    <JobSearchModeSwitch onToggle={onJobSearchModeToggle} defaultValue={jobSearchMode} switchLabel={`${!jobSearchMode ? "Start Job Search" : "End Job Search"}`} />
-                    <Box id="job-applied-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                    <JobSearchModeSwitch />
+                    <Box id="job-applied-profile-container" className={`profile-labels-with-tooltip ${!candidateDetails.jobSearch ? "disabled" : ""}`}>
                         <Typography variant="body1" className="profile-job-search-texts">
                             Jobs Applied
                         </Typography>
@@ -121,7 +111,7 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
-                    <Box id="active-job-processes-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                    <Box id="active-job-processes-profile-container" className={`profile-labels-with-tooltip ${!candidateDetails.jobSearch ? "disabled" : ""}`}>
                         <Typography variant="body1">
                             Active Processes
                         </Typography>
@@ -129,7 +119,7 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
-                    <Box id="links-in-tray-profile-container" className={`profile-labels-with-tooltip ${!jobSearchMode ? "disabled" : ""}`}>
+                    <Box id="links-in-tray-profile-container" className={`profile-labels-with-tooltip ${!candidateDetails.jobSearch ? "disabled" : ""}`}>
                         <Typography variant="body1">
                             Links in Tray
                         </Typography>
@@ -137,7 +127,7 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
-                    <OvalButton isDisabled={!jobSearchMode} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!jobSearchMode ? "disabled" : ""} />
+                    <OvalButton isDisabled={!candidateDetails.jobSearch} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!candidateDetails.jobSearch ? "disabled" : ""} />
                 </div>
             </Paper>
             <GenericBackDrop open={resumeEditorOpen} handleClose={closeResumeEditor}>

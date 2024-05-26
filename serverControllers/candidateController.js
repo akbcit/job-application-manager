@@ -1,8 +1,10 @@
 import { UserRepo } from "../data/db/mongoRepos/user.repo.js";
 import { CandidateRepo } from "../data/db/mongoRepos/candidate.repo.js";
+import { JobQueryRepo } from "../data/db/mongoRepos/jobQuery.repo.js";
 
 const userRepo = new UserRepo();
 const candidateRepo = new CandidateRepo();
+const jobQueryRepo = new JobQueryRepo();
 
 export const getProfileSummary = async (req, res) => {
   try {
@@ -27,31 +29,85 @@ export const getProfileSummary = async (req, res) => {
   }
 };
 
+export const getJobQueriesForCandidate = async (req, res) => {
+  try {
+    // get candidate id
+    const id = req.session.user.candidateDetails.id;
+    const jobQueries = await jobQueryRepo.getAllJobQueriesForCandidate(id);
+    if (jobQueries) {
+      return res.status(200).send({ jobQueries: jobQueries });
+    } else {
+      return res.status(500).send({ error: "Internal server error" });
+    }
+  } catch (err) {
+    return res.status(500).send({ error: "Internal server error" });
+  }
+};
+
 export const addJobQuery = async (req, res) => {
   try {
-    const email = req.params.email;
-    if (email !== req.session.user.email) {
-      return res.status(401).send({ error: "Unauthorized access!" });
+    // get candidate id
+    const id = req.session.user.candidateDetails.id;
+    // check if candidate job search is on
+    const jobSearch = req.session.user.jobSearch;
+    if (!jobSearch) {
+      await candidateRepo.toggleJobSearchById(id);
     }
-    // get user details from repo
-    const user = await userRepo.findUser(email);
-    if (!user) {
-      return res.status(400).send({ error: "No user found" });
+    // get job query
+    const jobQuery = req.body;
+    jobQuery.candidateId = id;
+    const response = await jobQueryRepo.addJobQuery(jobQuery);
+    if (response) {
+      return res.status(200).send({ success: "Added query successfully!" });
+    } else {
+      return res.status(500).send({ error: "Unable to add query" });
     }
-    // check if user is set up as a candidate
-    const candidate = await candidateRepo.findCandidateByEmail(email);
-    if (!candidate) {
-      return res.status(404).send({ error: "Candidate not found" });
-    }
-    // get candidate id 
-    const id = candidate.id;
-
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: "Internal server error" });
   }
 };
 
-export const startJobSearch = async (req,res)=>{
+export const deleteJobQuery = async (req, res) => {
+  try {
+    // get candidate id
+    const id = req.session.user.candidateDetails.id;
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: "Internal server error" });
+  }
+};
 
-}
+export const startJobSearch = async (req, res) => {
+  // get candidate
+  const candidate = req.session.user.candidateDetails;
+  // status of job search
+  if (candidate.jobSearch) {
+    return res.status(200).send({ message: "Job Search already on!" });
+  }
+  const response = await candidateRepo.toggleJobSearchById(candidate._id);
+  if (response) {
+    return res.status(200).send({ message: "Job Search activated!" });
+  } else {
+    return res
+      .status(500)
+      .send({ message: "Some error while activating search" });
+  }
+};
+
+export const endJobSearch = async (req, res) => {
+  // get candidate
+  const candidate = req.session.user.candidateDetails;
+  // status of job search
+  if (!candidate.jobSearch) {
+    return res.status(200).send({ message: "Job Search already off!" });
+  }
+  const response = await candidateRepo.toggleJobSearchById(candidate._id);
+  if (response) {
+    return res.status(200).send({ message: "Job Search deactivated!" });
+  } else {
+    return res
+      .status(500)
+      .send({ message: "Some error while deactivating search" });
+  }
+};
