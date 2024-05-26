@@ -3,4 +3,5 @@ export interface JobQuery{
     city: string,
     country: string,
     candidateId?: string,
+    _id?:string,
 }

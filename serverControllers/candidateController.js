@@ -70,8 +70,16 @@ export const addJobQuery = async (req, res) => {
 
 export const deleteJobQuery = async (req, res) => {
   try {
-    // get candidate id
-    const id = req.session.user.candidateDetails.id;
+    // get query id
+    const queryId = req.params.queryId;
+    const response = await jobQueryRepo.deleteJobQuery(queryId);
+    if(response){
+      return res.status(200).send({ message: "Delete query successfully" });
+    }
+    else{
+      return res.status(500).send({ error: "Unable to delete query" });
+    }
+    return res.status(200).send({ message: queryId});
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: "Internal server error" });

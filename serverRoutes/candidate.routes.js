@@ -15,7 +15,7 @@ candidateRouter.get("/jobSearch/query/:email", authenticate, candidateCheck,getJ
 
 candidateRouter.post("/jobSearch/query/:email", authenticate, candidateCheck,addJobQuery);
 
-candidateRouter.delete("/jobSearch/query/:email/:jobTitle/:city/:country", authenticate, candidateCheck,deleteJobQuery);
+candidateRouter.delete("/jobSearch/query/:email/:queryId", authenticate, candidateCheck,deleteJobQuery);
 
 
 

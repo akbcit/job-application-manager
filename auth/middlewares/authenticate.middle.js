@@ -10,7 +10,6 @@ export const authenticate = async (req, res, next) => {
   const accessToken = token.split(" ")[1];
 
   // Check auth type
-  console.log(req.session);
   const authType = req.session.user.authType;
   let verifiedEmail;
 
