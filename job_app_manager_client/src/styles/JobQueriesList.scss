@@ -1,0 +1,16 @@
+.queries-list-container {
+    padding: 16px;
+  }
+  
+  .job-query-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    color: #002D62;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .job-query-item span {
+    flex-grow: 1;
+  }

@@ -40,12 +40,6 @@ const CandidateSchema = new mongoose.Schema({
   candidatePersonalUrl: {
     type: String,
   },
-  jobSearchIds: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "JobSearch",
-    },
-  ],
   jobSearch: {
     type: Boolean,
     default: false,

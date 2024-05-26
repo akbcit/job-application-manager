@@ -24,4 +24,20 @@ export class CandidateRepo {
       return false;
     }
   }
+
+  async toggleJobSearchById(candidateId) {
+    try {
+      const candidate = await Candidate.findById(candidateId);
+      if (!candidate) {
+        console.error("No candidate found");
+        return false;
+      }
+      candidate.jobSearch = !candidate.jobSearch;
+      await candidate.save();
+      return candidate;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
 }
