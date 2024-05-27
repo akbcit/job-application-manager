@@ -10,10 +10,8 @@ export const candidateCheck = async (req, res, next) => {
     if (email !== req.session.user.email) {
       return res.status(401).send({ error: "Unauthorized access!" });
     }
-    console.log(`from middelware`,email);
     // get user details from repo
     const user = await userRepo.findUser(email);
-    console.log(user)
     if (!user) {
       return res.status(400).send({ error: "No user found" });
     }

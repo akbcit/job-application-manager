@@ -19,5 +19,4 @@ export const addJobQuery = async (email: string, jobTitle: string, city: string,
     catch (err) {
         throw new Error(`Failed to end job search`);
     }
-
 }
