@@ -1,4 +1,4 @@
-import { getResumePDF } from "../resumePdf/utils/getResumePDF.js";
+// import { getResumePDF } from "../resumePdf/utils/getResumePDF.js";
 import { CandidateRepo } from "../data/db/mongoRepos/candidate.repo.js";
 import { UserRepo } from "../data/db/mongoRepos/user.repo.js";
 import { ResumeRepo } from "../data/db/mongoRepos/resume.repo.js";

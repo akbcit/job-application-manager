@@ -1,9 +1,26 @@
 import mongoose from "mongoose";
 
+// Define the schema for job search queries
 const jobSearchQuerySchema = new mongoose.Schema({
-  jobTitle: String,
-  city: String,
-  country: String,
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: false,
+  },
+  experienceRequired: {
+    type: String,
+    required: false,
+  },
+  query_string: {
+    type: String,
+  },
   candidateId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -16,7 +33,11 @@ jobSearchQuerySchema.index(
   { unique: true }
 );
 
-export const JobSearchQuery = new mongoose.model(
-  "JobSearchQuery",
-  jobSearchQuerySchema
-);
+// Pre-save middleware to generate the query string
+jobSearchQuerySchema.pre('save', function (next) {
+  const { jobTitle, city, country } = this;
+  this.query_string = country ? `${jobTitle} in ${city}, ${country}` : `${jobTitle} in ${city}`;
+  next();
+});
+
+export const JobSearchQuery = mongoose.model("JobSearchQuery", jobSearchQuerySchema);

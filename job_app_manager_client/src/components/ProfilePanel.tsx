@@ -19,12 +19,16 @@ import { JobQueriesEditor } from "./JobQueriesEditor";
 import { useJobQueryEditorState } from "../localStates/jobQueryEditorState";
 import { JobQueryEditorState } from "../localStates/jobQueryEditorState";
 import { useCandidateDetails } from "../localStates/candidateDetailsState";
+import { useGmailAlertsEditorState } from "../localStates/gmailAlertsEditorState";
+import { GmailAlertsEditorState } from "../localStates/gmailAlertsEditorState";
+import { GmailAlertsEditor } from "./GmailAlertsEditor";
 
 export const ProfilePanel = () => {
     const { user } = useAuth();
     const [profileCompletion, setProfileCompletion] = useState<number>(0);
     const { resumeEditorOpen, setResumeEditorOpen, setResumeVersionNames } = useResumeEditor();
     const { jobQueryEditorState, setJobQueryEditorState } = useJobQueryEditorState();
+    const { gmailAlertsEditorState, setGmailAlertsEditorState } = useGmailAlertsEditorState();
 
     const { candidateDetails, profileQuery } = useCandidateDetails();
 
@@ -44,9 +48,19 @@ export const ProfilePanel = () => {
         setJobQueryEditorState((prevState: JobQueryEditorState) => ({ ...prevState, isJobQueryEditorOpen: true }));
     }
 
+    const openGmailAlertsEditor = () => {
+        setGmailAlertsEditorState((prevState: GmailAlertsEditorState) => ({ ...prevState, isGmailAlertsEditorOpen: true }));
+    }
+
     const closeSearchQueryEditor = () => {
         if (jobQueryEditorState.isJobQueryEditorOpen) {
             setJobQueryEditorState((prevState: JobQueryEditorState) => ({ ...prevState, isJobQueryEditorOpen: false }));
+        }
+    }
+
+    const closeGmailAlertsEditor = () => {
+        if (gmailAlertsEditorState.isGmailAlertsEditorOpen) {
+            setGmailAlertsEditorState((prevState: GmailAlertsEditorState) => ({ ...prevState, isGmailAlertsEditorOpen: false }));
         }
     }
 
@@ -119,14 +133,7 @@ export const ProfilePanel = () => {
                             <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
                         </Tooltip>
                     </Box>
-                    <Box id="links-in-tray-profile-container" className={`profile-labels-with-tooltip ${!candidateDetails.jobSearch ? "disabled" : ""}`}>
-                        <Typography variant="body1">
-                            Links in Tray
-                        </Typography>
-                        <Tooltip title="Start Job Search To Activate">
-                            <InfoIcon sx={{ color: "#15d196", marginLeft: 0.1, marginRight: 0.5, fontSize: 16 }} />
-                        </Tooltip>
-                    </Box>
+                    <OvalButton isDisabled={!candidateDetails.jobSearch} onButtonClick={openGmailAlertsEditor} content="Gmail Alerts Setup" extraClass={!candidateDetails.jobSearch ? "disabled" : ""} />
                     <OvalButton isDisabled={!candidateDetails.jobSearch} onButtonClick={openJobQueryManager} content="Job Query Manager" extraClass={!candidateDetails.jobSearch ? "disabled" : ""} />
                 </div>
             </Paper>
@@ -136,6 +143,10 @@ export const ProfilePanel = () => {
 
             <GenericBackDrop open={jobQueryEditorState.isJobQueryEditorOpen} handleClose={closeSearchQueryEditor}>
                 <JobQueriesEditor onQueriesSave={() => { }} />
+            </GenericBackDrop>
+
+            <GenericBackDrop open={gmailAlertsEditorState.isGmailAlertsEditorOpen} handleClose={closeGmailAlertsEditor}>
+                <GmailAlertsEditor />
             </GenericBackDrop>
         </>
     );

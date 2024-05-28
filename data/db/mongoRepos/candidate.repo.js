@@ -40,4 +40,15 @@ export class CandidateRepo {
       return false;
     }
   }
+
+  async getAllCandidateIds() {
+    try {
+      const candidates = await Candidate.find({}, "_id");
+      return candidates.map((candidate) => candidate._id);
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  }
+
 }

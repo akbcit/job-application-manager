@@ -1,6 +1,6 @@
 import { authenticate } from "../auth/middlewares/authenticate.middle.js";
 import { candidateCheck } from "../auth/middlewares/candidateCheck.middle.js";
-import { getProfileSummary,startJobSearch,addJobQuery,endJobSearch,deleteJobQuery,getJobQueriesForCandidate } from "../serverControllers/candidateController.js";
+import { getProfileSummary,startJobSearch,addJobQuery,endJobSearch,deleteJobQuery,getJobQueriesForCandidate,getSearchedJobsForCandidate } from "../serverControllers/candidateController.js";
 import express from "express";
 
 export const candidateRouter = express.Router();
@@ -16,6 +16,9 @@ candidateRouter.get("/jobSearch/query/:email", authenticate, candidateCheck,getJ
 candidateRouter.post("/jobSearch/query/:email", authenticate, candidateCheck,addJobQuery);
 
 candidateRouter.delete("/jobSearch/query/:email/:queryId", authenticate, candidateCheck,deleteJobQuery);
+
+candidateRouter.get("/jobSearch/searchedJobs/:email", authenticate, candidateCheck,getSearchedJobsForCandidate);
+
 
 
 

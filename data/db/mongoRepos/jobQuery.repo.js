@@ -44,28 +44,11 @@ export class JobQueryRepo {
 
   async getUniqueJobQueries() {
     try {
-      const uniqueJobQueries = await JobSearchQuery.aggregate([
-        {
-          $group: {
-            _id: {
-              jobTitle: "$jobTitle",
-              city: "$city",
-              country: "$country",
-            },
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-            jobTitle: "$_id.jobTitle",
-            city: "$_id.city",
-            country: "$_id.country",
-          },
-        },
-      ]);
+      const uniqueJobQueries = await JobSearchQuery.distinct("query_string");
+      console.log(uniqueJobQueries);
       return uniqueJobQueries;
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching unique job queries:", err);
       return false;
     }
   }

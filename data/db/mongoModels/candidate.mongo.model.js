@@ -44,6 +44,9 @@ const CandidateSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  excludedJobsIds: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "SearchedJob" },
+  ],
 });
 
 export const Candidate = mongoose.model("Candidate", CandidateSchema);

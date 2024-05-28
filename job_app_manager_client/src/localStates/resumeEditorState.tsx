@@ -115,6 +115,7 @@ export const ResumeEditorProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useResumeEditor = () => {
     const context = useContext(ResumeEditorContext);
     if (!context) {

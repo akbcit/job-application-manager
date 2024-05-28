@@ -2,10 +2,6 @@
     background-color: black;
 }
 
-#job-search-results-container {
-    background-color: black;
-}
-
 .job-search-results-grid {
     .MuiDataGrid-root {
         color: #15d196;
@@ -20,15 +16,22 @@
     .MuiDataGrid-columnHeaders {
         color: #15d196;
         border-color: #15d196;
+        font-weight: bold;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
     }
 
     .MuiDataGrid-columnSeparator {
-        color: #15d196;
-        border-color: #15d196;
+        visibility: visible;
+        background-color: #15d196;
     }
 
-    .MuiDataGrid-sortIcon {
-        color: #15d196;
+    .MuiDataGrid-sortIcon,
+    .MuiDataGrid-menuIcon,
+    .MuiSvgIcon-root {
+        color: aliceblue;
+        fill: aliceblue;
+        /* Ensure the SVG path is filled */
     }
 
     .MuiDataGrid-footerContainer {
@@ -46,5 +49,38 @@
 
     .MuiDataGrid-row {
         border-color: #15d196;
+    }
+
+    .MuiDataGrid-columnHeaderTitleContainerContent,
+    .MuiDataGrid-iconSeparator {
+        color: aliceblue;
+    }
+
+    .MuiDataGrid-columnHeaderTitle {
+        font-weight: bold;
+    }
+
+    .MuiDataGrid-iconSeparator {
+        display: none;
+        /* Hide the separator line if not needed */
+    }
+
+    .MuiDataGrid-columnHeader:focus,
+    .MuiDataGrid-columnHeader:focus-within {
+        outline: none;
+    }
+
+    /* Ensure resize handle visibility */
+    .MuiDataGrid-columnHeader:has(.MuiDataGrid-columnSeparator) {
+        .MuiDataGrid-columnSeparator {
+            visibility: visible;
+            opacity: 1;
+            background-color: #15d196;
+            /* Customize as needed */
+        }
+    }
+
+    .MuiTablePagination-displayedRows {
+        color: aliceblue;
     }
 }
