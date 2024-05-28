@@ -1,10 +1,12 @@
 import { UserRepo } from "../data/db/mongoRepos/user.repo.js";
 import { CandidateRepo } from "../data/db/mongoRepos/candidate.repo.js";
 import { JobQueryRepo } from "../data/db/mongoRepos/jobQuery.repo.js";
+import {SearchedJobRepo} from "../data/db/mongoRepos/searchedJob.repo.js";
 
 const userRepo = new UserRepo();
 const candidateRepo = new CandidateRepo();
 const jobQueryRepo = new JobQueryRepo();
+const searchedJobRepo = new SearchedJobRepo();
 
 export const getProfileSummary = async (req, res) => {
   try {
@@ -73,13 +75,12 @@ export const deleteJobQuery = async (req, res) => {
     // get query id
     const queryId = req.params.queryId;
     const response = await jobQueryRepo.deleteJobQuery(queryId);
-    if(response){
+    if (response) {
       return res.status(200).send({ message: "Delete query successfully" });
-    }
-    else{
+    } else {
       return res.status(500).send({ error: "Unable to delete query" });
     }
-    return res.status(200).send({ message: queryId});
+    return res.status(200).send({ message: queryId });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: "Internal server error" });
@@ -117,5 +118,25 @@ export const endJobSearch = async (req, res) => {
     return res
       .status(500)
       .send({ message: "Some error while deactivating search" });
+  }
+};
+
+export const getSearchedJobsForCandidate = async (req, res) => {
+  try {
+    // get candidate id
+    const id = req.session.user.candidateDetails.id;
+    const jobQueries = await jobQueryRepo.getAllJobQueriesForCandidate(id);
+    const searchedJobs = [];
+    if (jobQueries) {
+      // for each job query get searched jobs
+      for (let jobQuery of jobQueries) {
+        // for each query get jobs
+        const jobs = await searchedJobRepo.getJobsByQueryString(jobQuery.query_string);
+        searchedJobs.push(...jobs);
+      }
+      return res.status(200).send({ searchedJobs });
+    }
+  } catch (err) {
+    return res.status(500).send({ error: "Internal server error" });
   }
 };

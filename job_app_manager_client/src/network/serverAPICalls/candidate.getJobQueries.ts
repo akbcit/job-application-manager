@@ -12,7 +12,6 @@ export const getJobQueries = async (email: string) => {
         }
     }
     catch (err) {
-        console.log("hi");
         throw new Error(`Failed to end job search`);
     }
 

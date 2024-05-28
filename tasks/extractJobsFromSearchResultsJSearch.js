@@ -14,9 +14,11 @@ export const extractJobsFromSearchResultsJSearch = async () => {
     const results = await jobSearchResultRepo.getAllResults();
     
     for (const result of results) {
+      const queryString = result.queryString;
       for (const job of result.results) {
         const jobObj = {
           job_id: job.job_id,
+          job_search_query:queryString,
           search_source: SEARCH_SOURCE,
           employer_name: job.employer_name,
           job_employment_type: job.job_employment_type,

@@ -29,4 +29,14 @@ export class SearchedJobRepo {
       return false;
     }
   }
+
+  async getJobsByQueryString(queryString) {
+    try {
+      const jobs = await SearchedJob.find({ job_search_query: queryString });
+      return jobs;
+    } catch (err) {
+      console.error("Error retrieving jobs:", err);
+      return [];
+    }
+  }
 }

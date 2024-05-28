@@ -1,14 +1,15 @@
-import { getUniqueQueryStrings } from "./getUniqueQueryStrings.js";
 import { connectMongoDb } from "../data/db/connect/connectMongoDb.js";
 import { getJobSearchResultsForQueryString } from "./getJobSearchResultsForQueryString.js";
 import { JobSearchResultRepo } from "../data/db/mongoRepos/jobSearchResult.repo.js";
+import {JobQueryRepo} from "../data/db/mongoRepos/jobQuery.repo.js";
 
 const jobSearchResultRepo = new JobSearchResultRepo();
+const jobQueryRepo = new JobQueryRepo();
 
 const saveJobSearchResultsToDB = async () => {
   await connectMongoDb();
-  const queryStrings = await getUniqueQueryStrings();
-
+  const queryStrings = await jobQueryRepo.getUniqueJobQueries();
+  console.log("Fetched query strings:", queryStrings);
   for (const queryString of queryStrings) {
     console.log(`Processing query: ${queryString}`);
 
