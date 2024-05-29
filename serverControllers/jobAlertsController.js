@@ -1,108 +1,33 @@
 import dotenv from "dotenv";
-import fetch from "node-fetch";
-import { JobAlertEmailRepo } from "../data/db/mongoRepos/jobAlertEmail.repo.js";
 dotenv.config();
-
-const jobAlertEmailRepo = new JobAlertEmailRepo();
-
-const datasource = process.env.MONGODB_DATASOURCE_NAME;
-const database = process.env.MONGODB_DATABASE_NAME;
-const collection = process.env.MONGO_COLLECTION_NAME;
-const apiKey = process.env.MONGO_API_KEY;
-const mongoApiUrl = process.env.MONGO_API_URL;
-const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
+import {fetchEmailsFromSender} from "../services/google/gmail/fetchEmailsFromSender.js"
 
 export const parseGmailInbox = async (req, res) => {
-  const emailFrom = req.params.emailFrom;
-  const searchDate = req.params.searchDate;
-  const url = googleScriptUrl;
+  const senderEmail = req.params.emailFrom;
+  const scanRange = req.params.scanRange;
 
-  const params = {
-    emailFrom: emailFrom,
-    collection: collection,
-    database: database,
-    dataSource: datasource,
-    apiKey: apiKey,
-    mongoApiUrl: mongoApiUrl,
-    searchDate: searchDate,
-  };
+  const allowedScanRanges = ["today","last-three-days","last-week"];
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(params),
-  });
+  console.log(scanRange);
 
-  const responseData = await response.text();
-  
-  console.log(responseData);
-  return res.send(responseData);
-};
-
-export const getAllEmails = async (req, res) => {
-  try {
-    const emails = await jobAlertEmailRepo.getAllEmails();
-    if (emails) {
-      return res.status(200).send({ emails: emails });
-    } else {
-      return res.status(500).send({ error: "No emails found" });
-    }
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send({ error: "No emails found" });
+  if (!senderEmail) {
+    return res.status(400).send({ error: "Sender email is required" });
   }
-};
 
-export const deleteAllEmails = async (req, res) => {
-  try {
-    const result = await jobAlertEmailRepo.deleteAllEmails();
-    console.log(result)
-    return res
-      .status(200)
-      .send({ message: "All emails deleted successfully", result });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send({ error: "Error deleting emails" });
+  if (!allowedScanRanges.includes(scanRange)) {
+    return res.status(400).send({ error: "Invalid scan range" });
   }
-};
 
-export const getAllLinks = async (req, res) => {
-  try {
-    const emails = await jobAlertEmailRepo.getAllEmails();
-    let links = [];
-    if (emails) {
-      emails.forEach((email) => {
-        email.links.forEach((link,index) => {
-          if (link && !link.includes("unsub")) {
-            const linkObj = {
-              source: email.sender,
-              date: email.date,
-              link: link,
-              linkId:`${email.id}-${index}`
-            };
-            links.push(linkObj);
-          }
-        });
-      });
-      return res.status(200).send({ links: links });
-    } else {
-      return res.status(500).send({ error: "No links found" });
-    }
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send({ error: "No links found" });
+  if (!req.session.user || !req.session.user.accessToken) {
+    return res.status(401).send({ error: "Unauthorized" });
   }
-};
 
-export const deleteLink = (req, res) => {
-  const linkId = decodeURIComponent(req.params.linkId);
-  console.log(linkId);
-  const response = jobAlertEmailRepo.deleteLink(linkId);
-  if (response) {
-    return res.status(200).send({ success: "Link deleted!" });
-  } else {
-    return res.status(500).send({ error: "Could not delete" });
+  const accessToken = req.session.user.accessToken;
+  try {
+    const emails = await fetchEmailsFromSender(accessToken, senderEmail, scanRange);
+    console.log(`emails:`,emails);
+    return res.status(200).send(emails);
+  } catch (error) {
+    return res.status(500).send({ error: "Failed to fetch emails" });
   }
 };

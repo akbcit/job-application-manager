@@ -9,7 +9,6 @@ export const useGoogleAuth = (): AuthService => {
     const login = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
-            console.log(codeResponse)
             try {
                 // Exchange authorization code for tokens
                 const response = await axios.post("/api/auth/google", codeResponse);
@@ -23,7 +22,7 @@ export const useGoogleAuth = (): AuthService => {
             console.log("Login error");
             handleLogout();
         },
-        scope: 'openid email profile',
+        scope: 'openid email profile https://www.googleapis.com/auth/gmail.readonly',
     });
 
     const logout = () => {

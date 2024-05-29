@@ -1,18 +1,12 @@
 import express from "express";
 
-import { parseGmailInbox,getAllEmails,getAllLinks,deleteAllEmails,deleteLink } from "../serverControllers/jobAlertsController.js";
+import { parseGmailInbox} from "../serverControllers/jobAlertsController.js";
+import { authenticate } from "../auth/middlewares/authenticate.middle.js";
 
 export const jobAlertsRouter = express.Router();
 
-jobAlertsRouter.get("/",getAllEmails);
+jobAlertsRouter.get("/gmailParse/:emailFrom/:scanRange",authenticate,parseGmailInbox);
 
-jobAlertsRouter.get("/links",getAllLinks);
-
-jobAlertsRouter.get("/gmail-parse/:emailFrom/:searchDate",parseGmailInbox);
-
-jobAlertsRouter.delete("/links/:linkId", deleteLink);
-
-jobAlertsRouter.delete("/", deleteAllEmails);
 
 
 

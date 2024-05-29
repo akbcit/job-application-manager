@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/job", jobRouter);
 app.use("/api/resume", resumeRouter);
-app.use("/api/job-alerts", jobAlertsRouter);
+app.use("/api/jobAlerts", jobAlertsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/candidate", candidateRouter);
 app.use("/api/misc",miscRouter);
