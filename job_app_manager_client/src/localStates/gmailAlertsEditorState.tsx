@@ -2,10 +2,14 @@ import React, { ReactNode, createContext, useState, useContext, useEffect } from
 
 export interface GmailAlertsEditorState {
     isGmailAlertsEditorOpen: boolean;
+    emailFrom:string;
+    emailScanRange:string;
 }
 
 const initialState: GmailAlertsEditorState = {
     isGmailAlertsEditorOpen: false,
+    emailFrom:"",
+    emailScanRange:"",
 };
 
 export const GmailAlertsEditorContext = createContext<{
@@ -25,6 +29,8 @@ export const GmailAlertsEditorProvider: React.FC<GmailAlertsEditorProviderProps>
             console.log("hi");
             setGmailAlertsEditorState((prevState:GmailAlertsEditorState) => ({
                 ...prevState,
+                emailFrom:"",
+                emailScanRange:"",
             }));
         }
     }, [gmailAlertsEditorState.isGmailAlertsEditorOpen]);

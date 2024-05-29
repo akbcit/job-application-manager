@@ -30,10 +30,10 @@ export const JobSearchResults = () => {
 
 
     const columns: GridColDef[] = [
-        { field: "job_title", headerName: "Job Title", width: 250, resizable: true },
-        { field: "job_location", headerName: "Location", width: 150, resizable: true },
-        { field: "job_company", headerName: "Company", width: 150, resizable: true },
-        { field: "job_source", headerName: "Source", width: 150, resizable: true },
+        { field: "job_title", headerName: "Job Title", width: 250,  },
+        { field: "job_location", headerName: "Location", width: 150,   },
+        { field: "job_company", headerName: "Company", width: 150,   },
+        { field: "job_source", headerName: "Source", width: 150,  },
     ];
 
     if (searchedJobQuery.data) {

@@ -44,6 +44,8 @@ export const googleSignIn = async (req, res) => {
       `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`
     );
 
+    console.log(userInfoResponse.data);
+    
     const { email, given_name, family_name, picture } = userInfoResponse.data;
     const user = {
       email: email,
