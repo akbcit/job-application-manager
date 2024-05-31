@@ -128,19 +128,20 @@ export const refreshToken = async (req, res) => {
           return res.status(200).send({ accessToken });
         } else {
           handleLogout(req, res);
-          return res.status(401).send({ error: "Unauthorized access" });
+          // No need for another response here
+          return;
         }
       } catch (err) {
         handleLogout(req, res);
         console.error("Unable to issue new access token", err);
-        return res
-          .status(401)
-          .send({ error: "Unable to issue new access token" });
+        // No need for another response here
+        return;
       }
     }
   } else {
     handleLogout(req, res);
-    return res.status(401).send({ error: "Unauthenticated user" });
+    // No need for another response here
+    return;
   }
 };
 
