@@ -6,7 +6,7 @@ import { candidateCheck } from "../auth/middlewares/candidateCheck.middle.js";
 
 export const jobAlertsRouter = express.Router();
 
-jobAlertsRouter.get("/gmailParse/:emailFrom/:scanRange",authenticate,candidateCheck,parseGmailInbox);
+jobAlertsRouter.post("/gmailParse/:email/:emailFrom/:scanRange",authenticate,candidateCheck,parseGmailInbox);
 
 
 

@@ -6,8 +6,10 @@ import { OvalButton } from "./OvalButton";
 import { addGmailAlert } from "../network/serverAPICalls/jobAlerts.scanInbox";
 import { MailScanRangeSelect } from "./MailScanRangeSelect";
 import "../styles/GmailAlertsEditor.scss";
+import { useCandidateDetails } from "../localStates/candidateDetailsState";
 
 export const GmailAlertsEditor = () => {
+    const { candidateDetails } = useCandidateDetails();
 
     const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
@@ -25,7 +27,8 @@ export const GmailAlertsEditor = () => {
 
     const handleSubmit = async ()=>{
         console.log(gmailAlertsEditorState.emailFrom);
-        await addGmailAlert(gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange);
+        const email = candidateDetails.candidateEmail;
+        await addGmailAlert(email,gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange);
     }
 
     return <>
