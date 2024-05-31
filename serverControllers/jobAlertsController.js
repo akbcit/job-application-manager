@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
-import {fetchEmailsFromSender} from "../services/google/gmail/fetchEmailsFromSender.js"
+import {fetchEmailsFromSender} from "../services/google/gmail/fetchEmailsFromSender.js";
+import { extractLinks } from "../services/puppeteer/extractLinks.js";
 
 export const parseGmailInbox = async (req, res) => {
+  // get candidate id
+  const candidateId = req.session.user.candidateDetails.id;
   const senderEmail = req.params.emailFrom;
   const scanRange = req.params.scanRange;
 
@@ -25,8 +28,7 @@ export const parseGmailInbox = async (req, res) => {
   const accessToken = req.session.user.accessToken;
   try {
     const emails = await fetchEmailsFromSender(accessToken, senderEmail, scanRange);
-    console.log(`emails:`,emails);
-    return res.status(200).send(emails);
+    return res.status(200).send(links);
   } catch (error) {
     return res.status(500).send({ error: "Failed to fetch emails" });
   }
