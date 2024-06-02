@@ -2,18 +2,17 @@ import dotenv from "dotenv";
 dotenv.config();
 import {fetchEmailsFromSender} from "../services/google/gmail/fetchEmailsFromSender.js";
 import { extractLinks } from "../services/puppeteer/extractLinks.js";
+import {JobAlertLinkRepo} from "../data/db/mongoRepos/jobAlertLink.repo.js";
+
+const jobAlertLinkRepo = new JobAlertLinkRepo();
 
 export const parseGmailInbox = async (req, res) => {
-  console.log("hi from parse gmail")
-  console.log(req.session);
   // get candidate id
   const candidateId = req.session.user.candidateDetails.id;
   const senderEmail = req.params.emailFrom;
   const scanRange = req.params.scanRange;
 
   const allowedScanRanges = ["today","last-three-days","last-week"];
-
-  console.log(scanRange);
 
   if (!senderEmail) {
     return res.status(400).send({ error: "Sender email is required" });
@@ -30,10 +29,13 @@ export const parseGmailInbox = async (req, res) => {
   const accessToken = req.session.user.accessToken;
   try {
     const emails = await fetchEmailsFromSender(accessToken, senderEmail, scanRange);
-    const links = await extractLinks(emails);
-    console.log(links);
+    const links = await extractLinks(emails,senderEmail,candidateId);
+    console.log(`links`,links);
+    // save links to DB
+
     return res.status(200).send(links);
   } catch (error) {
+    console.log(error);
     return res.status(500).send({ error: "Failed to fetch emails" });
   }
 };

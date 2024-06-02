@@ -19,7 +19,7 @@ const jobAlertLinkSchema = new mongoose.Schema({
   },
 });
 
-export const JobAlertEmail = mongoose.model(
+export const JobAlertLink = mongoose.model(
   "JobAlertLink",
   jobAlertLinkSchema
 );

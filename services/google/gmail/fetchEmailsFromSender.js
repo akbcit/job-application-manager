@@ -16,7 +16,6 @@ export const fetchEmailsFromSender = async (
   const query = `from:${senderEmail}${
     isUnread ? " is:unread" : ""
   } newer_than:${newerThan}`;
-  console.log(query);
 
   try {
     const response = await axios.get(
@@ -35,7 +34,7 @@ export const fetchEmailsFromSender = async (
     const emails = [];
 
     for (const message of messages) {
-      const email = await axios.get(
+      const emailResponse = await axios.get(
         `https://gmail.googleapis.com/gmail/v1/users/me/messages/${message.id}`,
         {
           headers: {
@@ -44,7 +43,7 @@ export const fetchEmailsFromSender = async (
         }
       );
 
-      const emailData = email.data;
+      const emailData = emailResponse.data;
       const payload = emailData.payload;
       let messageContent = "";
 
@@ -66,7 +65,21 @@ export const fetchEmailsFromSender = async (
       }
 
       emails.push({ ...emailData, messageContent });
+
+      // Mark email as read
+      await axios.post(
+        `https://gmail.googleapis.com/gmail/v1/users/me/messages/${message.id}/modify`,
+        {
+          removeLabelIds: ["UNREAD"],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
     }
+
     return emails;
   } catch (error) {
     console.error("Failed to fetch emails", error);
