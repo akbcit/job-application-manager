@@ -22,7 +22,7 @@ export const useGoogleAuth = (): AuthService => {
             console.log("Login error");
             handleLogout();
         },
-        scope: 'openid email profile https://www.googleapis.com/auth/gmail.readonly',
+        scope: 'openid email profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.modify',
     });
 
     const logout = () => {
