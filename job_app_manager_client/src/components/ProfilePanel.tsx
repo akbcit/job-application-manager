@@ -21,7 +21,7 @@ import { JobQueryEditorState } from "../localStates/jobQueryEditorState";
 import { useCandidateDetails } from "../localStates/candidateDetailsState";
 import { useGmailAlertsEditorState } from "../localStates/gmailAlertsEditorState";
 import { GmailAlertsEditorState } from "../localStates/gmailAlertsEditorState";
-import { GmailAlertsEditor } from "./GmailAlertsEditor";
+import { ScanGmailInbox } from "./ScanGmailInbox";
 
 export const ProfilePanel = () => {
     const { user } = useAuth();
@@ -146,7 +146,7 @@ export const ProfilePanel = () => {
             </GenericBackDrop>
 
             <GenericBackDrop open={gmailAlertsEditorState.isGmailAlertsEditorOpen} handleClose={closeGmailAlertsEditor}>
-                <GmailAlertsEditor />
+                <ScanGmailInbox />
             </GenericBackDrop>
         </>
     );
