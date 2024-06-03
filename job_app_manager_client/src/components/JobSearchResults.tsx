@@ -37,7 +37,6 @@ export const JobSearchResults = () => {
     ];
 
     if (searchedJobQuery.data) {
-        console.log(searchedJobQuery.data);
         const rows: GridRowsProp = searchedJobQuery.data.map((job: SearchedJob) => ({
             id: job._id,
             job_title: job.job_title,

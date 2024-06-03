@@ -5,6 +5,7 @@ import { CandidateDetailsProvider } from "../localStates/candidateDetailsState.t
 import { JobSearchResults } from "../components/JobSearchResults.tsx";
 import { GmailAlertsEditorProvider } from "../localStates/gmailAlertsEditorState.tsx";
 import "../styles/PageDashBoard.scss";
+import { ScannedLinksList } from "../components/ScannedLinksList.tsx";
 
 export const PageDashBoard = () => {
   return (
@@ -16,6 +17,7 @@ export const PageDashBoard = () => {
               <ProfilePanel />
             </GmailAlertsEditorProvider>
             <JobSearchResults />
+            <ScannedLinksList/>
           </JobQueryEditorProvider>
         </ResumeEditorProvider>
       </CandidateDetailsProvider>

@@ -3,32 +3,36 @@ import { EmailFromInput } from "./EmailFromInput";
 import { useGmailAlertsEditorState } from "../localStates/gmailAlertsEditorState";
 import { useEffect, useState } from "react";
 import { OvalButton } from "./OvalButton";
-import { addGmailAlert } from "../network/serverAPICalls/jobAlerts.scanInbox";
+import { scanInbox } from "../network/serverAPICalls/jobAlerts.scanInbox";
 import { MailScanRangeSelect } from "./MailScanRangeSelect";
 import "../styles/GmailAlertsEditor.scss";
 import { useCandidateDetails } from "../localStates/candidateDetailsState";
+import CircularProgress from '@mui/material/CircularProgress';
 
-export const GmailAlertsEditor = () => {
+export const ScanGmailInbox = () => {
     const { candidateDetails } = useCandidateDetails();
+    const [isScanInProgress,setIsScanInProgress] = useState(false);
 
     const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
 
     const { gmailAlertsEditorState } = useGmailAlertsEditorState();
 
     useEffect(() => {
-        if (gmailAlertsEditorState.emailFrom && gmailAlertsEditorState.emailScanRange) {
+        if (gmailAlertsEditorState.emailFrom && gmailAlertsEditorState.emailScanRange &&!isScanInProgress) {
             setIsSubmitDisabled(false);
         }
         else {
             setIsSubmitDisabled(true);
         }
 
-    }, [gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange]);
+    }, [gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange,isScanInProgress]);
 
     const handleSubmit = async ()=>{
         console.log(gmailAlertsEditorState.emailFrom);
         const email = candidateDetails.candidateEmail;
-        await addGmailAlert(email,gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange);
+        setIsScanInProgress(true);
+        await scanInbox(email,gmailAlertsEditorState.emailFrom,gmailAlertsEditorState.emailScanRange);
+        setIsScanInProgress(false);
     }
 
     return <>
@@ -36,6 +40,7 @@ export const GmailAlertsEditor = () => {
             <EmailFromInput />
             <MailScanRangeSelect/>
             <OvalButton primaryColor="#0047ab" isDisabled={isSubmitDisabled} onButtonClick={handleSubmit} content="Add Alert" extraClass={isSubmitDisabled ? "disabled" : ""} />
+            {isScanInProgress && <CircularProgress/>}
         </Paper>
     </>
 }
